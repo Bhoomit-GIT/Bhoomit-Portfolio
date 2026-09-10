@@ -1,0 +1,239 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Download, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import styles from "./Hero.module.css";
+
+// Crisp brand icons matching reference
+function GithubIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+      />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+    </svg>
+  );
+}
+
+export default function Hero() {
+  const skills = ["DJANGO", "PYTHON", "AWS", "SQL", "AND MORE"];
+  const verticalWords = ["TURN", "IDEAS", "INTO", "IMPACT"];
+
+  const [typedLine1, setTypedLine1] = useState("");
+  const [typedLine2, setTypedLine2] = useState("");
+  const [typedLine3, setTypedLine3] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    const line1Full = "Hi, I’m";
+    const line2Full = "Bhoomit";
+    const line3Full = "Rachchawar";
+
+    let l1Index = 0;
+    let l2Index = 0;
+    let l3Index = 0;
+
+    const timeoutStart = setTimeout(() => {
+      const interval1 = setInterval(() => {
+        if (l1Index < line1Full.length) {
+          setTypedLine1(line1Full.slice(0, l1Index + 1));
+          l1Index++;
+        } else {
+          clearInterval(interval1);
+          setTimeout(() => {
+            const interval2 = setInterval(() => {
+              if (l2Index < line2Full.length) {
+                setTypedLine2(line2Full.slice(0, l2Index + 1));
+                l2Index++;
+              } else {
+                clearInterval(interval2);
+                setTimeout(() => {
+                  const interval3 = setInterval(() => {
+                    if (l3Index < line3Full.length) {
+                      setTypedLine3(line3Full.slice(0, l3Index + 1));
+                      l3Index++;
+                    } else {
+                      clearInterval(interval3);
+                      setIsTypingComplete(true);
+                    }
+                  }, 55);
+                }, 100);
+              }
+            }, 60);
+          }, 100);
+        }
+      }, 60);
+    }, 200);
+
+    return () => clearTimeout(timeoutStart);
+  }, []);
+
+  return (
+    <section className={styles.heroMain} aria-label="Hero">
+      {/* Left Column: Content */}
+      <motion.div
+        className={styles.leftCol}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <span className={styles.overline}>PYTHON DEVELOPER</span>
+
+        <h1 className={styles.title}>
+          <span className={styles.titleLine}>
+            {typedLine1}
+            {!typedLine2 && !isTypingComplete && (
+              <span className={styles.typingCursor} aria-hidden="true" />
+            )}
+          </span>
+          <span className={styles.titleLine}>
+            {typedLine2}
+            {typedLine2 && !typedLine3 && !isTypingComplete && (
+              <span className={styles.typingCursor} aria-hidden="true" />
+            )}
+          </span>
+          <span className={styles.titleLine}>
+            {typedLine3}
+            {typedLine3 && !isTypingComplete && (
+              <span className={styles.typingCursor} aria-hidden="true" />
+            )}
+            {isTypingComplete && <span className={styles.periodDot} aria-hidden="true" />}
+          </span>
+        </h1>
+
+        <p className={styles.description}>
+          Python Developer with expertise in Django, REST API development, and scalable web
+          applications. Passionate about building real-time systems, optimizing workflows, and
+          solving real-world problems through clean code.
+        </p>
+
+        <div className={styles.ctaGroup}>
+          <Link href="#projects" className={styles.primaryBtn}>
+            <span>View My Work</span>
+            <ArrowUpRight size={18} strokeWidth={2.2} />
+          </Link>
+
+          <a
+            href="/resume.pdf"
+            download
+            className={styles.secondaryBtn}
+            aria-label="Download Resume"
+          >
+            <span>Download Resume</span>
+            <Download size={18} strokeWidth={2} />
+          </a>
+        </div>
+
+        {/* Social Links & Philosophy Strip */}
+        <div className={styles.socialStrip}>
+          <div className={styles.socialIcons}>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialIconLink}
+              aria-label="GitHub"
+            >
+              <GithubIcon size={20} />
+            </a>
+
+            <div className={styles.socialDivider} />
+
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialIconLink}
+              aria-label="LinkedIn"
+            >
+              <LinkedinIcon size={20} />
+            </a>
+
+            <div className={styles.socialDivider} />
+
+            <a
+              href="mailto:contact@bhoomit.dev"
+              className={styles.socialIconLink}
+              aria-label="Email"
+            >
+              <Mail size={20} strokeWidth={1.9} />
+            </a>
+          </div>
+
+          <div className={styles.philosophyGroup}>
+            <div className={styles.philosophyLine} />
+            <span className={styles.philosophyText}>BUILD LEARN IMPROVE REPEAT</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Right Column: Visual Composition */}
+      <motion.div
+        className={styles.rightCol}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className={styles.visualWrapper}>
+          {/* Vertical tag on left of arch */}
+          <div className={styles.verticalTag} aria-hidden="true">
+            <div className={styles.verticalWords}>
+              {verticalWords.map((word) => (
+                <span key={word} className={styles.verticalWord}>
+                  {word}
+                </span>
+              ))}
+            </div>
+            <div className={styles.verticalLine} />
+          </div>
+
+          {/* Top-Right Skills List */}
+          <div className={styles.skillsBadge} aria-label="Key Technologies">
+            {skills.map((skill) => (
+              <span key={skill} className={styles.skillItem}>
+                {skill}
+              </span>
+            ))}
+            <div className={styles.skillsUnderline} />
+          </div>
+
+          {/* Portrait with Arch Backdrop */}
+          <div className={styles.portraitContainer}>
+            <Image
+              src="/hero.png"
+              alt="Bhoomit Rachchawar - Python Developer"
+              width={600}
+              height={654}
+              priority
+              className={styles.portraitImg}
+            />
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}

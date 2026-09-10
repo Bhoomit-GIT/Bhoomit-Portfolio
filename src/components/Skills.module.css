@@ -1,0 +1,351 @@
+.skillsSection {
+  position: relative;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 3rem 4rem 2.2rem 4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TOP OVERLINE */
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.8rem;
+  width: 100%;
+}
+
+.topLeftNav {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  user-select: none;
+}
+
+.indexNum {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #72767d;
+  letter-spacing: 0.06em;
+}
+
+.indexLine {
+  width: 38px;
+  height: 1px;
+  background-color: #adb0b6;
+}
+
+.sectionLabel {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}
+
+/* Top Right Slogan */
+.topRightSlogan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.22rem;
+  user-select: none;
+}
+
+.sloganWord {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #555960;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.sloganLine {
+  width: 28px;
+  height: 1.5px;
+  background-color: #adb0b6;
+  margin-top: 0.4rem;
+}
+
+/* TITLE & SUMMARY ROW */
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 5rem;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: clamp(3.2rem, 5.2vw, 5.4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #111215;
+  max-width: 520px;
+}
+
+.titleLine {
+  display: block;
+}
+
+.periodDot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #a3a6ad;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: baseline;
+  transform: translateY(1px);
+}
+
+.summaryCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 320px;
+  margin-bottom: 0.6rem;
+}
+
+.summaryText {
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: #555960;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.workflowTracker {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  user-select: none;
+}
+
+.workflowLine {
+  width: 30px;
+  height: 1px;
+  background-color: #adb0b6;
+}
+
+.workflowText {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}
+
+/* CARDS CONTAINER */
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  width: 100%;
+  margin-bottom: 2.2rem;
+}
+
+.rowTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.35rem;
+  width: 100%;
+}
+
+.rowBottom {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.08fr) minmax(0, 0.97fr);
+  gap: 1.35rem;
+  width: 100%;
+}
+
+/* INDIVIDUAL SKILL CARD */
+.skillCard {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  padding: 1.6rem 1.8rem 1.8rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  overflow: hidden;
+}
+
+.skillCard:hover {
+  background: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+  user-select: none;
+}
+
+.cardNumGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardNum {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #72767d;
+  letter-spacing: 0.05em;
+}
+
+.cardNumLine {
+  width: 28px;
+  height: 1px;
+  background-color: #adb0b6;
+}
+
+.cardTag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #72767d;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* Card Main Info */
+.cardContent {
+  margin-bottom: 2rem;
+}
+
+.cardTitle {
+  font-family: var(--font-sans);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #111215;
+  margin-bottom: 0.45rem;
+  line-height: 1.15;
+}
+
+.cardDesc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #62656d;
+  letter-spacing: -0.01em;
+}
+
+/* Tech Items Grid */
+.techRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-top: 1rem;
+}
+
+.techItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+  text-align: center;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.techItem:hover {
+  transform: translateY(-2px);
+}
+
+.techIconBox {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111215;
+}
+
+.techName {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #44474e;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* BOTTOM BAR */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 1.5rem;
+  user-select: none;
+}
+
+.bottomLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.bottomSectionTitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}
+
+.bottomDivider {
+  width: 36px;
+  height: 1px;
+  background-color: #adb0b6;
+}
+
+.bottomMindset {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}
+
+.bottomRight {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.bottomDot {
+  width: 6px;
+  height: 6px;
+  background-color: #9da0a7;
+  border-radius: 50%;
+}
+
+.bottomAction {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}

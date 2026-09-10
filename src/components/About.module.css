@@ -1,0 +1,638 @@
+.aboutSection {
+  position: relative;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 2.5rem 4rem 2.2rem 4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  min-height: calc(100vh - 90px);
+  max-height: 960px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TOP OVERLINE */
+.topNav {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.2rem;
+  user-select: none;
+}
+
+.indexNum {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #72767d;
+  letter-spacing: 0.06em;
+}
+
+.indexLine {
+  width: 38px;
+  height: 1px;
+  background-color: #adb0b6;
+}
+
+.sectionLabel {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+}
+
+/* MAIN CONTENT GRID */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.55fr 0.55fr;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+/* LEFT COLUMN */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 480px;
+  z-index: 10;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: clamp(3.2rem, 4.6vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #111215;
+  margin-bottom: 1.4rem;
+}
+
+.titleLine {
+  display: block;
+}
+
+.periodDot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #a3a6ad;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: baseline;
+  transform: translateY(1px);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.58;
+  color: #555960;
+  font-weight: 400;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.01em;
+  max-width: 420px;
+}
+
+.subquoteWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.8rem;
+  user-select: none;
+}
+
+.subquote {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #82858c;
+  text-transform: uppercase;
+}
+
+.subquoteLine {
+  width: 44px;
+  height: 1.5px;
+  background-color: #adb0b6;
+  margin-top: 0.65rem;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: transparent;
+  color: #15171a;
+  border: 1.3px solid rgba(0, 0, 0, 0.24);
+  padding: 0.8rem 1.9rem;
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.ctaBtn:hover {
+  background-color: #121316;
+  color: #ffffff;
+  border-color: #121316;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.ctaBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.ctaBtn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* CENTER SPHERE VISUAL */
+.centerVisual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 480px;
+}
+
+/* Vertical dividing axis extending across the full height */
+.verticalAxis {
+  position: absolute;
+  top: -30px;
+  bottom: -30px;
+  left: 50%;
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.16);
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* Top black solid square at apex of concentric arc */
+.axisSquareTop {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 215px);
+  width: 9px;
+  height: 9px;
+  background-color: #111215;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+}
+
+/* Bottom hollow square at bottom apex of concentric arc */
+.axisSquareBottom {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 215px);
+  width: 9px;
+  height: 9px;
+  background-color: #f2f3f3;
+  border: 1.5px solid #111215;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+}
+
+/* Concentric outer arc curving around the right side from top square to bottom square */
+.orbitArc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 430px;
+  height: 430px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Main Sphere Body */
+.sphere {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 72% 35%, #ffffff 0%, #edf0f2 55%, #e1e3e7 100%);
+  box-shadow: 
+    inset -15px -15px 45px rgba(0, 0, 0, 0.05),
+    inset 15px 15px 35px rgba(255, 255, 255, 0.9),
+    0 30px 60px -15px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+}
+
+/* ANIMATED MOVING DARK SHADOW / ECLIPSE */
+.shadowLayerPrimary {
+  position: absolute;
+  width: 290px;
+  height: 290px;
+  left: -25px;
+  top: 65px;
+  background: radial-gradient(
+    ellipse at 45% 50%,
+    rgba(20, 22, 26, 0.92) 0%,
+    rgba(36, 39, 45, 0.7) 42%,
+    rgba(68, 73, 82, 0.28) 65%,
+    transparent 80%
+  );
+  filter: blur(32px);
+  border-radius: 50%;
+  animation: shadowDriftPrimary 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+
+.shadowLayerSecondary {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  left: 20px;
+  top: 120px;
+  background: radial-gradient(
+    circle at center,
+    rgba(12, 13, 15, 0.86) 0%,
+    rgba(40, 44, 50, 0.5) 50%,
+    rgba(80, 85, 95, 0.15) 70%,
+    transparent 85%
+  );
+  filter: blur(28px);
+  border-radius: 50%;
+  animation: shadowDriftSecondary 9s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: multiply;
+}
+
+.shadowLayerAura {
+  position: absolute;
+  width: 200px;
+  height: 320px;
+  left: 10px;
+  top: 50px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 33, 38, 0.6) 0%,
+    transparent 75%
+  );
+  filter: blur(40px);
+  border-radius: 50%;
+  animation: shadowAura 15s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+
+@keyframes shadowDriftPrimary {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.88;
+  }
+  35% {
+    transform: translate(32px, -24px) scale(1.1);
+    opacity: 0.95;
+  }
+  70% {
+    transform: translate(14px, 28px) scale(1.04);
+    opacity: 0.82;
+  }
+  100% {
+    transform: translate(40px, 6px) scale(1.16);
+    opacity: 0.92;
+  }
+}
+
+@keyframes shadowDriftSecondary {
+  0% {
+    transform: scale(0.95) translate(-10px, 12px);
+    opacity: 0.78;
+  }
+  50% {
+    transform: scale(1.14) translate(22px, -18px);
+    opacity: 0.92;
+  }
+  100% {
+    transform: scale(1.02) translate(8px, 22px);
+    opacity: 0.74;
+  }
+}
+
+@keyframes shadowAura {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.12);
+  }
+  100% {
+    transform: rotate(-8deg) scale(0.95);
+  }
+}
+
+/* Subtle sphere border */
+.sphereBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  z-index: 7;
+}
+
+/* Left discipline list annotation */
+.disciplineList {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28rem;
+  z-index: 10;
+  user-select: none;
+}
+
+.disciplineItem {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #555960;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.disciplineLine {
+  width: 36px;
+  height: 1.5px;
+  background-color: #adb0b6;
+  margin-top: 0.65rem;
+}
+
+/* Right impact quote inside sphere */
+.impactQuote {
+  position: absolute;
+  right: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  z-index: 10;
+  user-select: none;
+  max-width: 165px;
+}
+
+.impactNormal {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: #62656d;
+  text-transform: uppercase;
+  line-height: 1.45;
+}
+
+.impactBold {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #111215;
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+
+/* RIGHT COLUMN */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 480px;
+  padding-left: 1.5rem;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+  margin-top: 1rem;
+}
+
+.featureItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.featureIcon {
+  color: #111215;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.featureItem:hover .featureIcon {
+  transform: translateY(-2px);
+}
+
+.featureText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.featureWord {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #1e2024;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.featureDivider {
+  width: 28px;
+  height: 1.5px;
+  background-color: #adb0b6;
+  margin-top: 0.25rem;
+}
+
+/* Bottom Right Section Number */
+.bottomRightMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  margin-top: auto;
+  user-select: none;
+}
+
+.bottomNum {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: #72767d;
+  letter-spacing: 0.05em;
+}
+
+.bottomLabel {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #8c9098;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .aboutSection {
+    padding: 3rem 2.5rem 3.5rem 2.5rem;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr 1.3fr 0.65fr;
+    gap: 2rem;
+  }
+
+  .sphere {
+    width: 370px;
+    height: 370px;
+  }
+
+  .orbitArc {
+    width: 430px;
+    height: 430px;
+  }
+
+  .axisSquareTop {
+    top: calc(50% - 215px);
+  }
+
+  .axisSquareBottom {
+    top: calc(50% + 215px);
+  }
+}
+
+@media (max-width: 992px) {
+  .aboutSection {
+    padding: 3rem 2rem 3.5rem 2rem;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .leftCol {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .description {
+    text-align: center;
+  }
+
+  .subquoteWrapper {
+    align-items: center;
+  }
+
+  .centerVisual {
+    height: 480px;
+  }
+
+  .rightCol {
+    min-height: auto;
+    padding-left: 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .featuresList {
+    flex-direction: row;
+    gap: 3rem;
+    margin-top: 0;
+  }
+
+  .bottomRightMarker {
+    width: 100%;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .bottomLabel {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutSection {
+    padding: 2rem 1.25rem 3rem 1.25rem;
+  }
+
+  .title {
+    font-size: clamp(2.6rem, 9vw, 3.4rem);
+  }
+
+  .sphere {
+    width: 290px;
+    height: 290px;
+  }
+
+  .orbitArc {
+    width: 335px;
+    height: 335px;
+  }
+
+  .axisSquareTop {
+    top: calc(50% - 167px);
+  }
+
+  .axisSquareBottom {
+    top: calc(50% + 167px);
+  }
+
+  .disciplineList {
+    left: -10px;
+  }
+
+  .disciplineItem {
+    font-size: 0.6rem;
+  }
+
+  .impactQuote {
+    right: 18px;
+    max-width: 120px;
+  }
+
+  .impactNormal {
+    font-size: 0.65rem;
+  }
+
+  .impactBold {
+    font-size: 0.7rem;
+  }
+
+  .featuresList {
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+}

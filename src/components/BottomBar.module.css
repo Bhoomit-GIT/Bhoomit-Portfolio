@@ -1,0 +1,83 @@
+.bottomBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  user-select: none;
+  z-index: 20;
+}
+
+.scrollIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.scrollText {
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollWord {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.scrollArrow {
+  color: #4a4d53;
+  margin-top: 0.2rem;
+  animation: bounce 2s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.currentSlide {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a1c20;
+  letter-spacing: 0.05em;
+}
+
+.pageTrack {
+  width: 60px;
+  height: 1.5px;
+  background-color: #adb0b6;
+  position: relative;
+}
+
+.totalSlides {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #7a7e86;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 600px) {
+  .bottomBar {
+    padding-top: 1rem;
+  }
+
+  .scrollIndicator {
+    display: none;
+  }
+}

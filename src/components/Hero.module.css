@@ -1,0 +1,526 @@
+.heroSection {
+  position: relative;
+  height: calc(100vh - 90px);
+  min-height: 680px;
+  max-height: 920px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 1.5rem 4rem 2rem 4rem;
+  width: 100%;
+}
+
+.heroMain {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  flex: 1;
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+/* LEFT COLUMN */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+  max-width: 680px;
+}
+
+.overline {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #72767d;
+  text-transform: uppercase;
+  margin-bottom: 1.35rem;
+  user-select: none;
+}
+
+.title {
+  font-size: clamp(3.4rem, 5.4vw, 5.8rem);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  color: #111215;
+  margin-bottom: 1.6rem;
+  word-break: break-word;
+}
+
+.titleLine {
+  display: block;
+}
+
+.periodDot {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background-color: #a3a6ad;
+  border-radius: 50%;
+  margin-left: 10px;
+  vertical-align: baseline;
+  transform: translateY(1px);
+}
+
+.typingCursor {
+  display: inline-block;
+  width: 4px;
+  height: 0.85em;
+  background-color: #121316;
+  margin-left: 6px;
+  vertical-align: baseline;
+  animation: blinkCursor 0.85s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.description {
+  font-size: 1.08rem;
+  line-height: 1.62;
+  color: #555960;
+  max-width: 535px;
+  margin-bottom: 2.6rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 3.4rem;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: #121316;
+  color: #ffffff;
+  padding: 0.95rem 2.2rem;
+  border-radius: 9999px;
+  font-size: 0.96rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
+}
+
+.primaryBtn:hover {
+  background-color: #26272c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+}
+
+.primaryBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.primaryBtn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  color: #191b1f;
+  padding: 0.95rem 2.2rem;
+  border-radius: 9999px;
+  font-size: 0.96rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.secondaryBtn:hover {
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.secondaryBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.secondaryBtn:hover svg {
+  transform: translateY(2px);
+}
+
+.socialStrip {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.socialIconLink {
+  color: #1a1c20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.socialIconLink:hover {
+  color: #000000;
+  transform: scale(1.1);
+}
+
+.socialDivider {
+  width: 1px;
+  height: 18px;
+  background-color: #cfd2d7;
+}
+
+.philosophyGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: 0.6rem;
+}
+
+.philosophyLine {
+  width: 48px;
+  height: 1px;
+  background-color: #c0c3c8;
+}
+
+.philosophyText {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #72767d;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* RIGHT COLUMN - VISUAL */
+.rightCol {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.visualWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.portraitContainer {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  aspect-ratio: 1201 / 1309;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  filter: contrast(1.02);
+}
+
+.portraitImg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Vertical Text: TURN IDEAS INTO IMPACT */
+.verticalTag {
+  position: absolute;
+  left: -20px;
+  top: 48%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 12;
+  user-select: none;
+}
+
+.verticalWords {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.verticalWord {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #72767d;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.verticalLine {
+  width: 1.5px;
+  height: 48px;
+  background-color: #b0b3b9;
+  margin-top: 0.35rem;
+}
+
+/* Skills list top right */
+.skillsBadge {
+  position: absolute;
+  right: 0px;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28rem;
+  z-index: 12;
+  user-select: none;
+}
+
+.skillItem {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #5c6066;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.skillsUnderline {
+  width: 38px;
+  height: 1.5px;
+  background-color: #8c8f96;
+  margin-top: 0.6rem;
+}
+
+/* Floating Card Bottom Right */
+.floatingCard {
+  position: absolute;
+  bottom: 10%;
+  right: -32px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 22px;
+  padding: 1.45rem 2.1rem 1.5rem 2.1rem;
+  box-shadow: 0 22px 45px -14px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 15;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.floatingCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 48px -15px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.cardDot {
+  width: 8.5px;
+  height: 8.5px;
+  background-color: #9da0a7;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.cardLine {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1f2125;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.cardUnderline {
+  width: 32px;
+  height: 1.5px;
+  background-color: #8c8f96;
+  margin-top: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .heroSection {
+    padding: 1.5rem 2.5rem 2rem 2.5rem;
+  }
+
+  .heroMain {
+    gap: 2rem;
+  }
+
+  .floatingCard {
+    right: 0;
+    bottom: 8%;
+    padding: 1.1rem 1.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .heroMain {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .leftCol {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .description {
+    max-width: 560px;
+  }
+
+  .ctaGroup {
+    justify-content: center;
+  }
+
+  .socialStrip {
+    justify-content: center;
+  }
+
+  .rightCol {
+    order: -1;
+  }
+
+  .verticalTag {
+    left: 10px;
+  }
+
+  .skillsBadge {
+    right: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroSection {
+    padding: 0.75rem 1rem 1.5rem 1rem;
+  }
+
+  .rightCol {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .visualWrapper {
+    max-width: 320px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .portraitContainer {
+    max-width: 300px;
+  }
+
+  .leftCol {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  .title {
+    font-size: clamp(2.3rem, 8.8vw, 2.9rem);
+    margin-bottom: 1.2rem;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 0.96rem;
+    line-height: 1.55;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .ctaGroup {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+  }
+
+  .socialStrip {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .philosophyGroup {
+    display: none;
+  }
+
+  .skillsBadge {
+    display: none;
+  }
+
+  .floatingCard {
+    bottom: 5%;
+    right: -5px;
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
+  }
+
+  .cardDot {
+    width: 6px;
+    height: 6px;
+    margin-bottom: 0.4rem;
+  }
+
+  .cardLine {
+    font-size: 0.78rem;
+  }
+
+  .cardUnderline {
+    width: 24px;
+    margin-top: 0.4rem;
+  }
+
+  .verticalTag {
+    display: none;
+  }
+}
