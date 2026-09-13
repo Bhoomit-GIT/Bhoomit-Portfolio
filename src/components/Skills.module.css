@@ -349,3 +349,121 @@
   color: #72767d;
   text-transform: uppercase;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1100px) {
+  .skillsSection {
+    padding: 3rem 2.5rem 2rem 2.5rem;
+  }
+
+  .titleRow {
+    gap: 3rem;
+  }
+
+  .rowBottom {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rowBottom > div:last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 900px) {
+  .skillsSection {
+    min-height: auto;
+    height: auto;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .titleRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    max-width: 100%;
+    font-size: clamp(2.5rem, 7.5vw, 3.6rem);
+  }
+
+  .summaryCol {
+    max-width: 100%;
+  }
+
+  .rowTop,
+  .rowBottom {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .rowBottom > div:last-child {
+    grid-column: span 1;
+  }
+
+  .skillCard {
+    padding: 1.4rem 1.4rem 1.5rem 1.4rem;
+  }
+
+  .skillCard:hover {
+    transform: none;
+  }
+
+  .techRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem 0.6rem;
+    padding-top: 0.8rem;
+  }
+
+  .techItem {
+    width: 100%;
+    transform: none !important;
+  }
+
+  .techName {
+    white-space: normal;
+    text-align: center;
+    word-break: break-word;
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 1.2rem;
+  }
+
+  .bottomDivider {
+    display: none;
+  }
+
+  .bottomLeft {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skillsSection {
+    padding: 2rem 1rem 2rem 1rem;
+  }
+
+  .techRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem 0.4rem;
+  }
+
+  .skillCard {
+    padding: 1.2rem 1rem 1.3rem 1rem;
+    border-radius: 18px;
+  }
+
+  .cardTitle {
+    font-size: 1.4rem;
+  }
+}

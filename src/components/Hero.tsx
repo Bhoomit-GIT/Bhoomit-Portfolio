@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Download, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { useHeroAbout } from "./HeroAboutBridge";
 import styles from "./Hero.module.css";
 
 // Crisp brand icons matching reference
@@ -43,53 +44,12 @@ export default function Hero() {
   const skills = ["DJANGO", "PYTHON", "AWS", "SQL", "AND MORE"];
   const verticalWords = ["TURN", "IDEAS", "INTO", "IMPACT"];
 
-  const [typedLine1, setTypedLine1] = useState("");
-  const [typedLine2, setTypedLine2] = useState("");
-  const [typedLine3, setTypedLine3] = useState("");
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const { isTravelingActive } = useHeroAbout();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const line1Full = "Hi, I’m";
-    const line2Full = "Bhoomit";
-    const line3Full = "Rachchawar";
-
-    let l1Index = 0;
-    let l2Index = 0;
-    let l3Index = 0;
-
-    const timeoutStart = setTimeout(() => {
-      const interval1 = setInterval(() => {
-        if (l1Index < line1Full.length) {
-          setTypedLine1(line1Full.slice(0, l1Index + 1));
-          l1Index++;
-        } else {
-          clearInterval(interval1);
-          setTimeout(() => {
-            const interval2 = setInterval(() => {
-              if (l2Index < line2Full.length) {
-                setTypedLine2(line2Full.slice(0, l2Index + 1));
-                l2Index++;
-              } else {
-                clearInterval(interval2);
-                setTimeout(() => {
-                  const interval3 = setInterval(() => {
-                    if (l3Index < line3Full.length) {
-                      setTypedLine3(line3Full.slice(0, l3Index + 1));
-                      l3Index++;
-                    } else {
-                      clearInterval(interval3);
-                      setIsTypingComplete(true);
-                    }
-                  }, 55);
-                }, 100);
-              }
-            }, 60);
-          }, 100);
-        }
-      }, 60);
-    }, 200);
-
-    return () => clearTimeout(timeoutStart);
+    const mobileQuery = typeof window !== "undefined" && window.innerWidth <= 768;
+    setIsMobile(mobileQuery);
   }, []);
 
   return (
@@ -97,32 +57,40 @@ export default function Hero() {
       {/* Left Column: Content */}
       <motion.div
         className={styles.leftCol}
-        initial={{ opacity: 0, y: 20 }}
+        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: isMobile ? 0.2 : 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className={styles.overline}>PYTHON DEVELOPER</span>
+        <div className={styles.overlineGroup}>
+          <span className={styles.overlineLine} aria-hidden="true" />
+          <span className={styles.overline}>PYTHON DEVELOPER</span>
+        </div>
 
         <h1 className={styles.title}>
-          <span className={styles.titleLine}>
-            {typedLine1}
-            {!typedLine2 && !isTypingComplete && (
-              <span className={styles.typingCursor} aria-hidden="true" />
-            )}
-          </span>
-          <span className={styles.titleLine}>
-            {typedLine2}
-            {typedLine2 && !typedLine3 && !isTypingComplete && (
-              <span className={styles.typingCursor} aria-hidden="true" />
-            )}
-          </span>
-          <span className={styles.titleLine}>
-            {typedLine3}
-            {typedLine3 && !isTypingComplete && (
-              <span className={styles.typingCursor} aria-hidden="true" />
-            )}
-            {isTypingComplete && <span className={styles.periodDot} aria-hidden="true" />}
-          </span>
+          <motion.span
+            className={styles.titleLine}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Hi, I’m
+          </motion.span>
+          <motion.span
+            className={styles.titleLine}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Bhoomit
+          </motion.span>
+          <motion.span
+            className={styles.titleLine}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Rachchawar<span className={styles.periodDot} aria-hidden="true" />
+          </motion.span>
         </h1>
 
         <p className={styles.description}>
@@ -194,9 +162,9 @@ export default function Hero() {
       {/* Right Column: Visual Composition */}
       <motion.div
         className={styles.rightCol}
-        initial={{ opacity: 0, scale: 0.98 }}
+        initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: isMobile ? 0.2 : 0.8, delay: isMobile ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className={styles.visualWrapper}>
           {/* Vertical tag on left of arch */}
@@ -222,14 +190,15 @@ export default function Hero() {
           </div>
 
           {/* Portrait with Arch Backdrop */}
-          <div className={styles.portraitContainer}>
+          <div className={styles.portraitContainer} id="hero-portrait-slot">
             <Image
-              src="/hero.png"
+              src="/hero-transparent.png"
               alt="Bhoomit Rachchawar - Python Developer"
               width={600}
               height={654}
               priority
               className={styles.portraitImg}
+              style={{ opacity: isTravelingActive ? 0 : 1 }}
             />
           </div>
         </div>

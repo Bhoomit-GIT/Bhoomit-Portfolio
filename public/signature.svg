@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 100" fill="none" width="100%" height="100%">
+  <g stroke="#121316" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Cursive 'B' -->
+    <path d="M 22 84 C 28 52, 40 22, 52 14 C 44 26, 32 64, 25 88 C 24 93, 27 94, 32 88 C 42 74, 58 56, 75 52 C 88 49, 93 60, 83 69 C 74 77, 56 83, 40 81" stroke-width="2.6" />
+    <path d="M 40 18 C 55 12, 76 17, 76 31 C 76 41, 64 48, 48 52" stroke-width="2.3" />
+    <path d="M 48 52 C 67 49, 84 55, 80 69 C 76 81, 57 85, 38 83" stroke-width="2.3" />
+
+    <!-- 'h' -->
+    <path d="M 75 74 C 82 58, 93 34, 100 22 C 98 34, 91 62, 88 78 C 92 66, 100 58, 109 58 C 117 58, 120 66, 118 76" stroke-width="2.3" />
+
+    <!-- 'o' 'o' -->
+    <path d="M 121 70 C 124 62, 132 57, 139 60 C 145 63, 145 72, 139 77 C 133 80, 127 75, 129 68 C 131 61, 140 60, 148 62" stroke-width="2.2" />
+    <path d="M 148 69 C 151 62, 159 57, 166 60 C 172 63, 172 72, 166 77 C 160 80, 154 75, 156 68 C 158 61, 167 60, 175 62" stroke-width="2.2" />
+
+    <!-- 'm' -->
+    <path d="M 176 74 C 178 66, 183 58, 188 58 C 193 58, 195 66, 194 74 C 197 66, 201 58, 206 58 C 211 58, 213 66, 212 74 C 214 66, 219 58, 224 58 C 229 58, 230 65, 229 74" stroke-width="2.2" />
+
+    <!-- 'i' -->
+    <path d="M 230 73 C 233 65, 236 59, 240 60 C 243 62, 243 68, 242 74" stroke-width="2.2" />
+    <circle cx="242" cy="51" r="1.6" fill="#121316" stroke="none" />
+
+    <!-- 't' stem & dynamic slash crossbar -->
+    <path d="M 244 73 C 247 62, 252 45, 255 34 C 254 44, 250 63, 249 74 C 249 78, 253 77, 258 73" stroke-width="2.3" />
+    <path d="M 235 48 Q 248 42 268 33" stroke-width="2.5" />
+
+    <!-- dynamic sweeping underline stroke -->
+    <path d="M 16 86 C 42 80, 85 70, 126 62" stroke-width="2" />
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import styles from "./Skills.module.css";
 
@@ -287,6 +287,17 @@ function GitLabIcon({ size = 26 }: { size?: number }) {
 }
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const topSlogans = ["BETTER", "TOOLS", "BRIGHTER", "SOLUTIONS"];
 
   return (
@@ -312,10 +323,10 @@ export default function Skills() {
       {/* Main Title & Philosophy Summary Row */}
       <motion.div
         className={styles.titleRow}
-        initial={{ opacity: 0, y: 25 }}
+        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: isMobile ? 0.2 : 0.65, ease: [0.22, 1, 0.36, 1] }}
       >
         <h2 className={styles.title}>
           <span className={styles.titleLine}>Tools</span>
@@ -343,10 +354,10 @@ export default function Skills() {
         {/* ROW 1: Frontend & Backend */}
         <motion.div
           className={styles.rowTop}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, delay: isMobile ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* 01: Frontend */}
           <div className={styles.skillCard}>
@@ -478,10 +489,10 @@ export default function Skills() {
         {/* ROW 2: Cloud, DevOps, Version Control */}
         <motion.div
           className={styles.rowBottom}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, delay: isMobile ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* 03: Cloud */}
           <div className={styles.skillCard}>

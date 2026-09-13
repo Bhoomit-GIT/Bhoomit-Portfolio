@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -74,6 +74,17 @@ const EDUCATION_ITEMS: EducationItem[] = [
 ];
 
 export default function Experience() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const scrollToProjects = (e: React.MouseEvent) => {
     e.preventDefault();
     const el = document.getElementById("projects");
@@ -110,10 +121,10 @@ export default function Experience() {
         {/* Left Column: Editorial Summary & Personal Quote */}
         <motion.div
           className={styles.leftCol}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.leftContentTop}>
             <span className={styles.journeyLabel}>MY JOURNEY</span>
@@ -141,7 +152,7 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Bottom Left: Concentric Arc Graphic & Monogram Signature */}
+          {/* Bottom Left: Concentric Arc Graphic */}
           <div className={styles.signatureBlock}>
             <svg
               className={styles.concentricArcs}
@@ -152,13 +163,6 @@ export default function Experience() {
               <circle cx="0" cy="340" r="220" stroke="rgba(0, 0, 0, 0.07)" strokeWidth="1.2" />
               <circle cx="0" cy="340" r="310" stroke="rgba(0, 0, 0, 0.05)" strokeWidth="1.2" />
             </svg>
-
-            <div className={styles.monogramIdentity}>
-              <div className={styles.monogramCircle}>
-                <span>N</span>
-              </div>
-              <span className={styles.monogramName}>BHOOMIT RACHCHAWAR</span>
-            </div>
           </div>
         </motion.div>
 
@@ -168,10 +172,10 @@ export default function Experience() {
         {/* Right Column: Work Experience (01) & Education (02) */}
         <motion.div
           className={styles.rightCol}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, delay: isMobile ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Section 01: Work Experience */}
           <div className={styles.blockGroup}>

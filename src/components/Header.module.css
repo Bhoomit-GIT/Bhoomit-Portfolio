@@ -2,12 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.2rem 4rem 1rem 4rem;
+  padding: 1.6rem clamp(1.5rem, 4vw, 4rem);
   max-width: 1560px;
   margin: 0 auto;
   width: 100%;
-  position: relative;
-  z-index: 50;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.headerScrolled {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(242, 243, 243, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logo {
@@ -103,15 +116,35 @@
   transform: translate(2px, -2px);
 }
 
-/* Mobile responsive menu */
-.mobileToggle {
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobileToggleBtn {
   display: none;
-  color: #111111;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #111215;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+/* Mobile drawer menu */
+.mobileDrawerOverlay {
+  display: none;
 }
 
 @media (max-width: 900px) {
   .header {
-    padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+    padding: 1.1rem 1.25rem 0.6rem 1.25rem;
   }
 
   .nav {
@@ -119,8 +152,142 @@
   }
 
   .connectBtn {
-    padding: 0.55rem 1rem;
-    font-size: 0.82rem;
-    gap: 0.35rem;
+    display: none;
+  }
+
+  .mobileToggleBtn {
+    display: flex;
+  }
+
+  .mobileDrawerOverlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 19, 22, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .mobileDrawerOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobileDrawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(85vw, 360px);
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+    box-sizing: border-box;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobileDrawerOpen .mobileDrawer {
+    transform: translateX(0);
+  }
+
+  .mobileDrawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .mobileCloseBtn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #f2f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #121316;
+    cursor: pointer;
+  }
+
+  .mobileNavLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.5rem 0;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .mobileNavItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0.75rem;
+    border-radius: 12px;
+    color: #44474e;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  .mobileNavItem:active,
+  .mobileNavItem:hover {
+    background-color: #f5f6f7;
+    color: #111215;
+  }
+
+  .activeMobileNavItem {
+    background-color: #f2f3f4;
+    color: #111215;
+    font-weight: 700;
+  }
+
+  .mobileNavIndex {
+    font-size: 0.75rem;
+    color: #8c9098;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .mobileNavText {
+    flex: 1;
+  }
+
+  .mobileNavArrow {
+    color: #8c9098;
+    opacity: 0.6;
+  }
+
+  .mobileDrawerFooter {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .mobileConnectBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    width: 100%;
+    background-color: #121316;
+    color: #ffffff;
+    padding: 0.95rem 1.4rem;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-sizing: border-box;
   }
 }

@@ -456,33 +456,13 @@
   margin-top: auto;
 }
 
-.signatureBrand {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  flex-shrink: 0;
-}
-
-.monogramCircle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #121316;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.82rem;
+.bottomLeftTag {
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.signatureName {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: #555960;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .bottomDividerLine {
@@ -528,7 +508,9 @@
 
 @media (max-width: 860px) {
   .contactSection {
-    padding: 2.5rem 2rem;
+    min-height: auto;
+    height: auto;
+    padding: 2.5rem 1.5rem;
   }
 
   .mainGrid {

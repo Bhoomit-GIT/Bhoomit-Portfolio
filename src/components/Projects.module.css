@@ -899,3 +899,162 @@
   text-transform: uppercase;
   line-height: 1.35;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+  .projectsSection {
+    padding: 3rem 2.5rem 2.5rem 2.5rem;
+  }
+
+  .mainGrid {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .projectsSection {
+    min-height: auto;
+    height: auto;
+    padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 0;
+  }
+
+  .leftCol {
+    max-width: 100%;
+  }
+
+  .projectTitle {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+  }
+
+  .rightCol {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .controlsBar {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .laptopWrapper {
+    max-width: 100%;
+  }
+
+  .laptopLid {
+    width: 95%;
+  }
+
+  .laptopScreen {
+    overflow: hidden;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 1.2rem;
+  }
+
+  .bottomDivider {
+    display: none;
+  }
+
+  .bottomLeft {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .bottomRight {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .projectsSection {
+    padding: 2rem 1rem 2rem 1rem;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    width: 100%;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .secondaryBtn {
+    padding: 0.6rem 0;
+  }
+
+  .featuresList {
+    gap: 1rem;
+  }
+
+  .featureItem {
+    gap: 0.75rem;
+  }
+
+  .laptopLid {
+    width: 100%;
+    padding: 6px 6px 0 6px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .laptopNotch {
+    width: 54px;
+    height: 9px;
+  }
+
+  .laptopBase {
+    height: 12px;
+  }
+
+  .screenBody {
+    grid-template-columns: 1fr;
+  }
+
+  .screenHeader {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .screenSearchBox {
+    display: none;
+  }
+
+  .screenSidebar {
+    display: none;
+  }
+
+  .screenMain {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .statCardsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.35rem;
+  }
+
+  .screenSplitRow {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .contentCard:last-child {
+    display: none;
+  }
+}

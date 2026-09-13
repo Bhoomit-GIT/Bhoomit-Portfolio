@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -40,6 +40,17 @@ const APPROACH_STEPS: ApproachStep[] = [
 ];
 
 export default function Approach() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section className={styles.approachSection} id="approach" aria-label="My Approach">
       {/* Top Overline Header */}
@@ -64,10 +75,10 @@ export default function Approach() {
         {/* Left Column: Mission Statement */}
         <motion.div
           className={styles.leftCol}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.overheadTag}>
             <span>A MORE THOUGHTFUL WAY</span>
@@ -93,10 +104,10 @@ export default function Approach() {
         {/* Center & Right Area: Mountain Artwork & Ambient Micro-Typography */}
         <motion.div
           className={styles.artworkContainer}
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.8, delay: isMobile ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Subtle Wireframe Circular Accent behind Mountain Peak */}
           <svg
@@ -160,10 +171,10 @@ export default function Approach() {
             <motion.div
               key={step.num}
               className={styles.stepCard}
-              initial={{ opacity: 0, y: 20 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: 0.1 * idx + 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: isMobile ? 0.2 : 0.55, delay: isMobile ? 0 : 0.1 * idx + 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Step Node Marker */}
               <div className={styles.nodeWrapper}>
@@ -189,15 +200,8 @@ export default function Approach() {
 
       {/* Section Footer Bar */}
       <footer className={styles.bottomBar}>
-        <div className={styles.signatureBrand}>
-          <div className={styles.monogramCircle}>
-            <span>B</span>
-          </div>
-          <span className={styles.signatureName}>BHOOMIT RACHCHAWAR</span>
-        </div>
-
+        <span className={styles.bottomLeftTag}>06 • METHODOLOGY</span>
         <div className={styles.bottomDividerLine} />
-
         <div className={styles.bottomRightTag}>
           <span className={styles.bottomTagText}>BUILD LEARN IMPROVE REPEAT</span>
           <div className={styles.bottomTagLine} />

@@ -790,15 +790,28 @@ function renderSidebarIcon(icon: string) {
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const currentProject = PROJECTS_DATA[currentIndex];
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Reduce animation & disorienting auto-slide on mobile touch devices
+    if (isMobile) return;
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev === PROJECTS_DATA.length - 1 ? 0 : prev + 1));
     }, 10000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isMobile]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? PROJECTS_DATA.length - 1 : prev - 1));
@@ -833,10 +846,10 @@ export default function Projects() {
         {/* Left Column: Project Details */}
         <motion.div
           className={styles.leftCol}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className={styles.featuredLabel}>{currentProject.category}</span>
 
@@ -898,10 +911,10 @@ export default function Projects() {
         {/* Right Column: Controls Bar & Realistic MacBook Mockup */}
         <motion.div
           className={styles.rightCol}
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.75, delay: isMobile ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Top Controls: 01 / 06 ────── [ < ] [ > ] */}
           <div className={styles.controlsBar}>

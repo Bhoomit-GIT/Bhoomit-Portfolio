@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -76,6 +76,17 @@ interface ContactChannel {
 }
 
 export default function Contact() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -149,10 +160,10 @@ export default function Contact() {
         {/* Column 1: Left Editorial Narrative */}
         <motion.div
           className={styles.colIntro}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className={styles.overlineTag}>LET’S CONNECT</span>
 
@@ -183,10 +194,10 @@ export default function Contact() {
         {/* Column 2: Exact Sleek Direct Contact Rows from Reference */}
         <motion.div
           className={styles.colChannels}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, delay: isMobile ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.channelsHeader}>
             <span className={styles.blockNum}>01</span>
@@ -221,10 +232,10 @@ export default function Contact() {
         {/* Column 3: Seamless Architectural Contact Form */}
         <motion.div
           className={styles.colForm}
-          initial={{ opacity: 0, y: 25 }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: isMobile ? 0.2 : 0.65, delay: isMobile ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.formHeader}>
             <div className={styles.formHeaderLeft}>
@@ -306,17 +317,10 @@ export default function Contact() {
         </motion.div>
       </div>
 
-      {/* Matching Theme Footer Bar */}
+      {/* Footer Bar */}
       <footer className={styles.bottomBar}>
-        <div className={styles.signatureBrand}>
-          <div className={styles.monogramCircle}>
-            <span>B</span>
-          </div>
-          <span className={styles.signatureName}>BHOOMIT RACHCHAWAR</span>
-        </div>
-
+        <span className={styles.bottomLeftTag}>07 • CONNECT</span>
         <div className={styles.bottomDividerLine} />
-
         <div className={styles.bottomRightTag}>
           <span className={styles.bottomTagText}>THANK YOU FOR STOPPING BY</span>
           <div className={styles.bottomTagLine} />

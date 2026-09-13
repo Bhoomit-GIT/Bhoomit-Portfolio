@@ -1,0 +1,23 @@
+.bridgeWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.travelingPortrait {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  will-change: transform, width, height;
+}
+
+.travelingImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

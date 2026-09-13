@@ -178,10 +178,17 @@
 
 .monogramIdentity {
   display: flex;
-  align-items: center;
-  gap: 1.1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   position: relative;
   z-index: 1;
+}
+
+.signatureImage {
+  object-fit: contain;
+  width: 150px;
+  height: auto;
 }
 
 .monogramCircle {
@@ -531,12 +538,14 @@
 
 @media (max-width: 960px) {
   .experienceSection {
-    padding: 2.5rem 2rem;
+    min-height: auto;
+    height: auto;
+    padding: 2.5rem 1.5rem;
   }
 
   .mainGrid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .columnDivider {

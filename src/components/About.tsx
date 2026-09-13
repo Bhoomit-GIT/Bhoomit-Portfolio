@@ -1,228 +1,266 @@
 "use client";
-import React from "react";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Lightbulb, BarChart2, User, Mountain, ArrowDown } from "lucide-react";
+import { useHeroAbout } from "./HeroAboutBridge";
 import styles from "./About.module.css";
 
-// Precise line-art icons matching the reference design
-function LayersIcon({ size = 22 }: { size?: number }) {
+// Bold Infinity glyph matching the weight of 3+ and 10+
+function BoldInfinity({ className }: { className?: string }) {
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
+      className={className}
+      viewBox="0 0 56 28"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="7"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      aria-label="Infinity"
     >
-      <polygon points="12 2 2 7 12 12 22 7 12 2" />
-      <polyline points="2 12 12 17 22 12" />
-      <polyline points="2 17 12 22 22 17" />
+      <path d="M15 21.5c-4.4 0-8-3.3-8-7.5s3.6-7.5 8-7.5c5.5 0 9.5 8.5 13 8.5s7.5-8.5 13-8.5c4.4 0 8 3.3 8 7.5s-3.6 7.5-8 7.5c-5.5 0-9.5-8.5-13-8.5s-7.5 8.5-13 8.5z" />
     </svg>
   );
 }
 
-function LightbulbIcon({ size = 22 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M12 2v2" />
-      <path d="M4.93 4.93l1.41 1.41" />
-      <path d="M2 12h2" />
-      <path d="M20 12h2" />
-      <path d="M19.07 4.93l-1.41 1.41" />
-      <path d="M15 9.5a3 3 0 0 0-6 0c0 2 1.2 3.2 1.8 4.2.3.5.5 1 .5 1.8h1.4c0-.8.2-1.3.5-1.8.6-1 1.8-2.2 1.8-4.2z" />
-    </svg>
-  );
-}
-
-function UsersIcon({ size = 22 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
+const PILLARS_DATA = [
+  {
+    icon: Lightbulb,
+    title1: "SOLVE",
+    title2: "PROBLEMS",
+  },
+  {
+    icon: BarChart2,
+    title1: "BUILD",
+    title2: "SOLUTIONS",
+  },
+  {
+    icon: User,
+    title1: "LEARN",
+    title2: "DAILY",
+  },
+  {
+    icon: Mountain,
+    title1: "AIM",
+    title2: "HIGHER",
+  },
+];
 
 export default function About() {
-  const disciplineWords = ["DISCIPLINE", "CURIOSITY", "CONSISTENCY", "GROWTH"];
+  const { isTravelingActive } = useHeroAbout();
+  const [isMobile, setIsMobile] = useState(false);
 
-  const features = [
-    {
-      icon: <LayersIcon size={22} />,
-      line1: "SOLVE",
-      line2: "PROBLEMS",
-    },
-    {
-      icon: <LightbulbIcon size={22} />,
-      line1: "LEARN",
-      line2: "ALWAYS",
-    },
-    {
-      icon: <UsersIcon size={22} />,
-      line1: "CREATE",
-      line2: "VALUE",
-    },
-  ];
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const topTags = ["PEOPLE", "IDEAS", "CODE", "IMPACT"];
 
   return (
-    <section className={styles.aboutSection} id="about" aria-label="About Me">
-      {/* Top Overline Navigation */}
-      <div className={styles.topNav}>
-        <span className={styles.indexNum}>02</span>
-        <div className={styles.indexLine} />
-        <span className={styles.sectionLabel}>ABOUT ME</span>
+    <section className={styles.aboutSection} id="about" aria-label="About Bhoomit Rachchawar">
+      {/* ====================================================================
+          TOP OVERLINE ROW
+          ==================================================================== */}
+      <div className={styles.topBar}>
+        <div className={styles.topLeft}>
+          <span className={styles.indexNum}>02</span>
+          <span className={styles.indexLine} aria-hidden="true" />
+          <span className={styles.sectionTitle}>ABOUT ME</span>
+          <span className={styles.headerConnectingLine} aria-hidden="true" />
+        </div>
+
+        {/* Top Alignment Line that connects down to the pillar */}
+        <div className={styles.topPillarGuide} aria-hidden="true" />
+
+        <div className={styles.topRightTags}>
+          {topTags.map((tag) => (
+            <span key={tag} className={styles.tagItem}>
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className={styles.mainGrid}>
-        {/* Left Column: Narrative Headline & Copy */}
-        <motion.div
-          className={styles.leftCol}
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h2 className={styles.title}>
-            <span className={styles.titleLine}>More</span>
-            <span className={styles.titleLine}>than just</span>
-            <span className={styles.titleLine}>
-              code<span className={styles.periodDot} aria-hidden="true" />
-            </span>
-          </h2>
-
-          <p className={styles.description}>
-            I&apos;m a Python developer who loves turning ideas into real, working solutions. I
-            enjoy building scalable systems, automating complex tasks, and exploring new
-            technologies that make a difference.
-          </p>
-
-          <div className={styles.subquoteWrapper}>
-            <span className={styles.subquote}>CLEAN THINKING. REAL SOLUTIONS.</span>
-            <div className={styles.subquoteLine} />
+      {/* ====================================================================
+          MAIN COMPOSITION GRID
+          ==================================================================== */}
+      <div className={styles.mainContainer}>
+        {/* ------------------------------------------------------------------
+            COLUMN 1: Left Statement & Philosophy
+            ------------------------------------------------------------------ */}
+        <div className={styles.leftCol}>
+          <div className={styles.leftHeadlineWrap}>
+            <h2 className={styles.mainHeadline}>
+              <span className={styles.headlineBold}>Curious</span>
+              <span className={styles.headlineBold}>Minds</span>
+              <span className={styles.headlineBold}>Build</span>
+              <span className={styles.headlineItalicLight}>Brighter</span>
+              <span className={styles.headlineItalicDark}>Realities.</span>
+            </h2>
           </div>
 
-          <Link href="#contact" className={styles.ctaBtn}>
-            <span>Get to know me</span>
-            <ArrowUpRight size={17} strokeWidth={2} />
-          </Link>
-        </motion.div>
-
-        {/* Center Visual: Moving Dark Shadow Sphere */}
-        <motion.div
-          className={styles.centerVisual}
-          aria-hidden="true"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Vertical axis line */}
-          <div className={styles.verticalAxis} />
-
-          {/* Top solid black terminal square */}
-          <div className={styles.axisSquareTop} />
-
-          {/* Bottom hollow terminal square */}
-          <div className={styles.axisSquareBottom} />
-
-          {/* Concentric outer arc curving around right side */}
-          <div className={styles.orbitArc} />
-
-          {/* Left discipline list annotations */}
-          <div className={styles.disciplineList}>
-            {disciplineWords.map((word) => (
-              <span key={word} className={styles.disciplineItem}>
-                {word}
-              </span>
-            ))}
-            <div className={styles.disciplineLine} />
+          <div className={styles.leftBottomMeta}>
+            <div className={styles.metaLines}>
+              <span>A DEVELOPER</span>
+              <span>WHO TURNS</span>
+              <span>IDEAS INTO</span>
+              <span>MEANINGFUL</span>
+              <span>SOLUTIONS.</span>
+            </div>
+            <div className={styles.verticalHairline} aria-hidden="true" />
           </div>
+        </div>
 
-          {/* The Sphere with dynamic moving dark side shadow */}
-          <div className={styles.sphere}>
-            {/* Animated smoky dark shadow layers */}
-            <div className={styles.shadowLayerPrimary} />
-            <div className={styles.shadowLayerSecondary} />
-            <div className={styles.shadowLayerAura} />
-            <div className={styles.sphereBorder} />
+        {/* ------------------------------------------------------------------
+            CENTER AREA: Pillar + Portrait + Tags + Narrative
+            ------------------------------------------------------------------ */}
+        <div className={styles.centerArea}>
+          {/* Architectural Pillar & Portrait Stage */}
+          <div className={styles.pillarWrapper}>
+            {/* Textured Vertical Pillar */}
+            <div className={styles.texturedPillar} aria-hidden="true" />
 
-            {/* Right quote inside the sphere */}
-            <div className={styles.impactQuote}>
-              <span className={styles.impactNormal}>I BUILD</span>
-              <span className={styles.impactNormal}>SOLUTIONS</span>
-              <span className={styles.impactNormal}>THAT CREATE</span>
-              <span className={styles.impactBold}>REAL IMPACT.</span>
+            {/* Rotated Edge Text */}
+            <div className={styles.rotatedTextWrap} aria-hidden="true">
+              <span className={styles.rotatedText}>DISCIPLINE TURNS IDEA INTO RESULTS</span>
+            </div>
+
+            {/* Top Tag: A BETTER VERSION EVERYDAY */}
+            <div className={styles.betterVersionTag}>
+              <span>A</span>
+              <span>BETTER</span>
+              <span>VERSION</span>
+              <span>EVERYDAY</span>
+              <div className={styles.tagLine} aria-hidden="true" />
+            </div>
+
+            {/* Portrait Image with Natural Arch and Fade Mask */}
+            <div className={styles.portraitWrap} id="about-portrait-slot">
+              <Image
+                src="/hero-transparent.png"
+                alt="Bhoomit Rachchawar - Python Developer"
+                width={500}
+                height={550}
+                className={styles.portraitImg}
+                style={{ opacity: isTravelingActive ? 0 : 1 }}
+                priority
+              />
             </div>
           </div>
-        </motion.div>
 
-        {/* Right Column: Key Principles & Section Marker */}
-        <motion.div
-          className={styles.rightCol}
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className={styles.featuresList}>
-            {features.map((item, idx) => (
-              <motion.div
-                key={item.line1}
-                className={styles.featureItem}
-                initial={{ opacity: 0, x: 15 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 * idx + 0.2 }}
-              >
-                <div className={styles.featureIcon}>{item.icon}</div>
-                <div className={styles.featureText}>
-                  <span className={styles.featureWord}>{item.line1}</span>
-                  <span className={styles.featureWord}>{item.line2}</span>
-                </div>
-                <div className={styles.featureDivider} />
-              </motion.div>
-            ))}
+          {/* Narrative Column */}
+          <div className={styles.narrativeCol}>
+            <div className={styles.greetingRow}>
+              <span className={styles.greetingText}>HELLO, I&apos;M BHOOMIT</span>
+              <span className={styles.greetingLine} aria-hidden="true" />
+            </div>
+
+            <h3 className={styles.leadNarrative}>
+              I’m a Python developer passionate about building scalable solutions and turning complex
+              problems into simple, impactful systems.
+            </h3>
+
+            <p className={styles.bodyNarrative}>
+              I enjoy working with Django, APIs, and modern web technologies to create real-world
+              applications that make a difference. I’m constantly learning, exploring new tools, and
+              challenging myself to build better, cleaner, and more efficient code.
+            </p>
+
+            {/* 4 Value Pillars Row */}
+            <div className={styles.pillarsContainer}>
+              <div className={styles.pillarsGrid}>
+                {PILLARS_DATA.map((item) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <div key={item.title1 + item.title2} className={styles.pillarItem}>
+                      <div className={styles.pillarIconWrap}>
+                        <IconComponent size={21} strokeWidth={1.8} />
+                      </div>
+                      <div className={styles.pillarLabels}>
+                        <span>{item.title1}</span>
+                        <span>{item.title2}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className={styles.pillarsBottomLine} aria-hidden="true" />
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------
+            COLUMN 3: Far Right Metrics & Perspective
+            ------------------------------------------------------------------ */}
+        <div className={styles.rightCol}>
+          <div className={styles.metricsList}>
+            <div className={styles.metricItem}>
+              <div className={styles.metricValue}>3+</div>
+              <div className={styles.metricLabel}>
+                <span>YEARS OF</span>
+                <span>LEARNING</span>
+              </div>
+            </div>
+
+            <div className={styles.metricItem}>
+              <div className={styles.metricValue}>10+</div>
+              <div className={styles.metricLabel}>
+                <span>PROJECTS</span>
+                <span>BUILT</span>
+              </div>
+            </div>
+
+            <div className={styles.metricItem}>
+              <div className={styles.metricValue}>
+                <BoldInfinity className={styles.infinityGlyph} />
+              </div>
+              <div className={styles.metricLabel}>
+                <span>CURIOSITY</span>
+                <span>REMAINING</span>
+              </div>
+            </div>
           </div>
 
-          <div className={styles.bottomRightMarker}>
-            <span className={styles.bottomNum}>02</span>
-            <span className={styles.bottomLabel}>
-              A SMALL BIT
-              <br />
-              ABOUT ME
-            </span>
+          <div className={styles.perspectiveWrap}>
+            <div className={styles.perspectiveText}>
+              <span>SAME</span>
+              <span>IDEAS</span>
+              <span>DIFFERENT</span>
+              <span>PERSPECTIVE</span>
+            </div>
+            <div className={styles.perspectiveLine} aria-hidden="true" />
           </div>
-        </motion.div>
+        </div>
+      </div>
+
+      {/* ====================================================================
+          FULL-WIDTH BOTTOM BAR FOOTER
+          ==================================================================== */}
+      <div className={styles.bottomBar}>
+        <div className={styles.bottomBarLeft}>
+          <span className={styles.authorBrand}>BHOOMIT RACHCHAWAR</span>
+        </div>
+
+        <div className={styles.bottomBarCenter}>
+          <span className={styles.bracketYear}>[ 2022 ]</span>
+          <span className={styles.centerDividerLine} aria-hidden="true" />
+          <span className={styles.centerMantra}>BUILD LEARN IMPROVE REPEAT</span>
+          <span className={styles.centerDividerLine} aria-hidden="true" />
+          <span className={styles.bracketInfinity}>[ ∞ ]</span>
+        </div>
+
+        <div className={styles.bottomBarRight}>
+          <Link href="#skills" className={styles.scrollDownBtn} aria-label="Scroll to Skills">
+            <ArrowDown size={16} strokeWidth={2.2} />
+          </Link>
+        </div>
       </div>
     </section>
   );

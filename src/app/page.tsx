@@ -10,6 +10,7 @@ import Experience from "@/components/Experience";
 import Approach from "@/components/Approach";
 import Contact from "@/components/Contact";
 import BottomBar from "@/components/BottomBar";
+import HeroAboutBridge from "@/components/HeroAboutBridge";
 import styles from "@/components/Hero.module.css";
 
 export default function Home() {
@@ -25,11 +26,13 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header activeNav="Home" />
-      <main className={styles.heroSection} id="home">
-        <Hero />
-        <BottomBar currentSlide="01" totalSlides="05" />
-      </main>
-      <About />
+      <HeroAboutBridge>
+        <main className={styles.heroSection} id="home">
+          <Hero />
+          <BottomBar currentSlide="01" totalSlides="05" />
+        </main>
+        <About />
+      </HeroAboutBridge>
       <Skills />
       <Projects />
       <Experience />
