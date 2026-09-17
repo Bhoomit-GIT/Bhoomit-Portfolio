@@ -1,15 +1,16 @@
 .heroSection {
   position: relative;
-  height: calc(100vh - 90px);
-  min-height: 680px;
-  max-height: 920px;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-width: 1560px;
   margin: 0 auto;
-  padding: 1.5rem 4rem 2rem 4rem;
+  padding: 1.2rem clamp(1.5rem, 4vw, 4rem) 1.5rem clamp(1.5rem, 4vw, 4rem);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .heroMain {
@@ -29,8 +30,8 @@
   justify-content: center;
   z-index: 10;
   max-width: 680px;
-  transform: translate3d(0, calc(var(--hero-exit, 0) * -35px), 0);
-  opacity: calc(1 - var(--hero-exit, 0) * 0.75);
+  transform: translate3d(calc(var(--hero-exit, 0) * 120px), 0, 0);
+  opacity: calc(1 - var(--hero-exit, 0));
   will-change: transform, opacity;
 }
 
@@ -276,7 +277,7 @@
   position: absolute;
   left: -20px;
   top: 48%;
-  transform: translateY(-50%) translate3d(calc(var(--hero-exit, 0) * -30px), 0, 0);
+  transform: translateY(-50%) translate3d(calc(var(--hero-exit, 0) * 80px), 0, 0);
   opacity: calc(1 - var(--hero-exit, 0));
   display: flex;
   flex-direction: column;
@@ -315,7 +316,7 @@
   position: absolute;
   right: 0px;
   top: 10%;
-  transform: translate3d(calc(var(--hero-exit, 0) * 20px), calc(var(--hero-exit, 0) * -25px), 0);
+  transform: translate3d(calc(var(--hero-exit, 0) * 80px), 0, 0);
   opacity: calc(1 - var(--hero-exit, 0));
   display: flex;
   flex-direction: column;

@@ -15,7 +15,7 @@ function BoldInfinity({ className }: { className?: string }) {
       viewBox="0 0 56 28"
       fill="none"
       stroke="currentColor"
-      strokeWidth="7"
+      strokeWidth="6.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-label="Infinity"
@@ -48,13 +48,31 @@ const PILLARS_DATA = [
   },
 ];
 
+const METRICS_DATA = [
+  {
+    value: "3+",
+    label1: "YEARS OF",
+    label2: "LEARNING",
+  },
+  {
+    value: "10+",
+    label1: "PROJECTS",
+    label2: "BUILT",
+  },
+  {
+    isInfinity: true,
+    label1: "CURIOSITY",
+    label2: "REMAINING",
+  },
+];
+
 export default function About() {
   const { isTravelingActive } = useHeroAbout();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 900);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -66,18 +84,14 @@ export default function About() {
   return (
     <section className={styles.aboutSection} id="about" aria-label="About Bhoomit Rachchawar">
       {/* ====================================================================
-          TOP OVERLINE ROW
+          TOP ROW: SECTION LABEL & ESSENCE TAGS
           ==================================================================== */}
       <div className={styles.topBar}>
         <div className={styles.topLeft}>
           <span className={styles.indexNum}>02</span>
           <span className={styles.indexLine} aria-hidden="true" />
           <span className={styles.sectionTitle}>ABOUT ME</span>
-          <span className={styles.headerConnectingLine} aria-hidden="true" />
         </div>
-
-        {/* Top Alignment Line that connects down to the pillar */}
-        <div className={styles.topPillarGuide} aria-hidden="true" />
 
         <div className={styles.topRightTags}>
           {topTags.map((tag) => (
@@ -89,59 +103,31 @@ export default function About() {
       </div>
 
       {/* ====================================================================
-          MAIN COMPOSITION GRID
+          MAIN 2-COLUMN COMPOSITION: LEFT PORTRAIT | RIGHT NARRATIVE & METRICS
           ==================================================================== */}
       <div className={styles.mainContainer}>
         {/* ------------------------------------------------------------------
-            COLUMN 1: Left Statement & Philosophy
+            LEFT COLUMN: ARCHITECTURAL PORTRAIT STAGE
             ------------------------------------------------------------------ */}
-        <div className={styles.leftCol}>
-          <div className={styles.leftHeadlineWrap}>
-            <h2 className={styles.mainHeadline}>
-              <span className={styles.headlineBold}>Curious</span>
-              <span className={styles.headlineBold}>Minds</span>
-              <span className={styles.headlineBold}>Build</span>
-              <span className={styles.headlineItalicLight}>Brighter</span>
-              <span className={styles.headlineItalicDark}>Realities.</span>
-            </h2>
-          </div>
-
-          <div className={styles.leftBottomMeta}>
-            <div className={styles.metaLines}>
-              <span>A DEVELOPER</span>
-              <span>WHO TURNS</span>
-              <span>IDEAS INTO</span>
-              <span>MEANINGFUL</span>
-              <span>SOLUTIONS.</span>
-            </div>
-            <div className={styles.verticalHairline} aria-hidden="true" />
-          </div>
-        </div>
-
-        {/* ------------------------------------------------------------------
-            CENTER AREA: Pillar + Portrait + Tags + Narrative
-            ------------------------------------------------------------------ */}
-        <div className={styles.centerArea}>
-          {/* Architectural Pillar & Portrait Stage */}
+        <div className={styles.portraitStage}>
           <div className={styles.pillarWrapper}>
-            {/* Textured Vertical Pillar */}
+            {/* Textured Vertical Pillar Backdrop */}
             <div className={styles.texturedPillar} aria-hidden="true" />
 
             {/* Rotated Edge Text */}
             <div className={styles.rotatedTextWrap} aria-hidden="true">
-              <span className={styles.rotatedText}>DISCIPLINE TURNS IDEA INTO RESULTS</span>
+              <span className={styles.rotatedText}>DISCIPLINE TURNS IDEAS INTO RESULTS</span>
             </div>
 
-            {/* Top Tag: A BETTER VERSION EVERYDAY */}
+            {/* Minimalist Top Tag */}
             <div className={styles.betterVersionTag}>
-              <span>A</span>
-              <span>BETTER</span>
+              <span>A BETTER</span>
               <span>VERSION</span>
               <span>EVERYDAY</span>
               <div className={styles.tagLine} aria-hidden="true" />
             </div>
 
-            {/* Portrait Image with Natural Arch and Fade Mask */}
+            {/* Portrait Image with Natural Arch and Gradient Mist Mask */}
             <div className={styles.portraitWrap} id="about-portrait-slot">
               <Image
                 src="/hero-transparent.png"
@@ -154,88 +140,76 @@ export default function About() {
               />
             </div>
           </div>
-
-          {/* Narrative Column */}
-          <div className={styles.narrativeCol}>
-            <div className={styles.greetingRow}>
-              <span className={styles.greetingText}>HELLO, I&apos;M BHOOMIT</span>
-              <span className={styles.greetingLine} aria-hidden="true" />
-            </div>
-
-            <h3 className={styles.leadNarrative}>
-              I’m a Python developer passionate about building scalable solutions and turning complex
-              problems into simple, impactful systems.
-            </h3>
-
-            <p className={styles.bodyNarrative}>
-              I enjoy working with Django, APIs, and modern web technologies to create real-world
-              applications that make a difference. I’m constantly learning, exploring new tools, and
-              challenging myself to build better, cleaner, and more efficient code.
-            </p>
-
-            {/* 4 Value Pillars Row */}
-            <div className={styles.pillarsContainer}>
-              <div className={styles.pillarsGrid}>
-                {PILLARS_DATA.map((item) => {
-                  const IconComponent = item.icon;
-                  return (
-                    <div key={item.title1 + item.title2} className={styles.pillarItem}>
-                      <div className={styles.pillarIconWrap}>
-                        <IconComponent size={21} strokeWidth={1.8} />
-                      </div>
-                      <div className={styles.pillarLabels}>
-                        <span>{item.title1}</span>
-                        <span>{item.title2}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className={styles.pillarsBottomLine} aria-hidden="true" />
-            </div>
-          </div>
         </div>
 
         {/* ------------------------------------------------------------------
-            COLUMN 3: Far Right Metrics & Perspective
+            RIGHT COLUMN: LIGHT, SOPHISTICATED NARRATIVE, PILLARS & STATS
             ------------------------------------------------------------------ */}
-        <div className={styles.rightCol}>
-          <div className={styles.metricsList}>
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>3+</div>
-              <div className={styles.metricLabel}>
-                <span>YEARS OF</span>
-                <span>LEARNING</span>
-              </div>
+        <div className={styles.contentStage}>
+          {/* Lead Intro Headline */}
+          <div className={styles.narrativeHeader}>
+            <div className={styles.greetingPill}>
+              <span className={styles.greetingDot} />
+              <span className={styles.greetingText}>HELLO, I&apos;M BHOOMIT</span>
             </div>
 
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>10+</div>
-              <div className={styles.metricLabel}>
-                <span>PROJECTS</span>
-                <span>BUILT</span>
-              </div>
-            </div>
+            <h2 className={styles.leadNarrative}>
+              I&apos;m a Python developer passionate about crafting scalable backend systems,
+              intuitive APIs, and real-time web applications that deliver measurable impact.
+            </h2>
+          </div>
 
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>
-                <BoldInfinity className={styles.infinityGlyph} />
-              </div>
-              <div className={styles.metricLabel}>
-                <span>CURIOSITY</span>
-                <span>REMAINING</span>
-              </div>
+          {/* Narrative Body Copy */}
+          <div className={styles.narrativeBodyWrap}>
+            <p className={styles.bodyParagraph}>
+              With a strong foundation in <strong>Django</strong>, <strong>RESTful APIs</strong>, and relational databases,
+              I build software that balances computational efficiency with clean, maintainable architecture.
+              I thrive on simplifying complex problems, optimizing high-throughput workflows, and continuous experimentation.
+            </p>
+          </div>
+
+          {/* 4 Value Pillars Grid */}
+          <div className={styles.pillarsSection}>
+            <div className={styles.pillarsGrid}>
+              {PILLARS_DATA.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <div key={item.title1 + item.title2} className={styles.pillarCard}>
+                    <div className={styles.pillarIconWrap}>
+                      <IconComponent size={20} strokeWidth={1.8} />
+                    </div>
+                    <div className={styles.pillarLabels}>
+                      <span>{item.title1}</span>
+                      <span>{item.title2}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          <div className={styles.perspectiveWrap}>
-            <div className={styles.perspectiveText}>
-              <span>SAME</span>
-              <span>IDEAS</span>
-              <span>DIFFERENT</span>
-              <span>PERSPECTIVE</span>
-            </div>
-            <div className={styles.perspectiveLine} aria-hidden="true" />
+          {/* Horizontal Metric Badges Row */}
+          <div className={styles.metricsRow}>
+            {METRICS_DATA.map((item, idx) => (
+              <React.Fragment key={item.label1 + item.label2}>
+                <div className={styles.metricItem}>
+                  <div className={styles.metricValue}>
+                    {item.isInfinity ? (
+                      <BoldInfinity className={styles.infinityGlyph} />
+                    ) : (
+                      item.value
+                    )}
+                  </div>
+                  <div className={styles.metricLabel}>
+                    <span>{item.label1}</span>
+                    <span>{item.label2}</span>
+                  </div>
+                </div>
+                {idx < METRICS_DATA.length - 1 && (
+                  <div className={styles.metricDivider} aria-hidden="true" />
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>

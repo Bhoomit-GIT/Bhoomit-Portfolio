@@ -3,21 +3,98 @@
   width: 100%;
 }
 
-.travelingPortrait {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  will-change: transform, width, height;
+@media (min-width: 901px) {
+  .bridgeWrapper {
+    height: 220vh;
+  }
+
+  .stickyStage {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--bg-color, #f8f9fa);
+  }
+
+  .heroLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+    opacity: calc(1 - var(--hero-exit, 0));
+    pointer-events: var(--hero-pointer, auto);
+    will-change: opacity;
+  }
+
+  .aboutLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 15;
+    pointer-events: var(--about-pointer, none);
+  }
+
+  .travelingPortrait {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    pointer-events: none;
+    will-change: transform, width, height, opacity;
+    transform-origin: top left;
+  }
+
+  .travelingImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .bridgeWrapper :global(#hero-portrait-slot) img,
+  .bridgeWrapper :global(#about-portrait-slot) img {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 }
 
-.travelingImg {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+@media (max-width: 900px) {
+  .bridgeWrapper {
+    height: auto;
+    position: relative;
+  }
+
+  .stickyStage {
+    position: relative;
+    height: auto;
+    width: 100%;
+  }
+
+  .heroLayer {
+    position: relative;
+    width: 100%;
+  }
+
+  .aboutLayer {
+    position: relative;
+    width: 100%;
+  }
+
+  .travelingPortrait {
+    display: none !important;
+  }
 }

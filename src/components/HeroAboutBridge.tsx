@@ -14,8 +14,19 @@ const HeroAboutContext = createContext<HeroAboutContextType>({
 
 export const useHeroAbout = () => useContext(HeroAboutContext);
 
-export default function HeroAboutBridge({ children }: { children: React.ReactNode }) {
+interface HeroAboutBridgeProps {
+  heroContent?: React.ReactNode;
+  aboutContent?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+export default function HeroAboutBridge({
+  heroContent,
+  aboutContent,
+  children,
+}: HeroAboutBridgeProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const travelingRef = useRef<HTMLDivElement>(null);
   const [isTravelingActive, setIsTravelingActive] = useState(false);
 
@@ -26,46 +37,47 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
     aboutLeft: number;
     aboutTop: number;
     aboutWidth: number;
-    scrollRange: number;
   } | null>(null);
 
   useEffect(() => {
     let animationFrameId: number;
 
+    const ease = (v: number) =>
+      v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2;
+
     const measureSlots = () => {
-      if (!wrapperRef.current) return;
+      if (!wrapperRef.current || !stickyRef.current) return;
       const isDesktop = window.innerWidth > 900;
       if (!isDesktop) {
         setIsTravelingActive(false);
         coordsRef.current = null;
         if (wrapperRef.current) {
           wrapperRef.current.style.setProperty("--hero-exit", "0");
-          wrapperRef.current.style.setProperty("--about-pillar", "1");
-          wrapperRef.current.style.setProperty("--about-narrative", "1");
+          wrapperRef.current.style.setProperty("--hero-pointer", "auto");
+          wrapperRef.current.style.setProperty("--about-left", "1");
+          wrapperRef.current.style.setProperty("--about-content", "1");
+          wrapperRef.current.style.setProperty("--about-bars", "1");
+          wrapperRef.current.style.setProperty("--about-pointer", "auto");
         }
         return;
       }
 
-      const wrapperRect = wrapperRef.current.getBoundingClientRect();
+      const stickyRect = stickyRef.current.getBoundingClientRect();
       const heroSlot = document.getElementById("hero-portrait-slot");
       const aboutSlot = document.getElementById("about-portrait-slot");
-      const aboutSection = document.getElementById("about");
 
-      if (!heroSlot || !aboutSlot || !aboutSection) return;
+      if (!heroSlot || !aboutSlot) return;
 
       const heroRect = heroSlot.getBoundingClientRect();
       const aboutRect = aboutSlot.getBoundingClientRect();
 
-      const heroLeft = heroRect.left - wrapperRect.left;
-      const heroTop = heroRect.top - wrapperRect.top;
+      const heroLeft = heroRect.left - stickyRect.left;
+      const heroTop = heroRect.top - stickyRect.top;
       const heroWidth = heroRect.width;
 
-      const aboutLeft = aboutRect.left - wrapperRect.left;
-      const aboutTop = aboutRect.top - wrapperRect.top;
+      const aboutLeft = aboutRect.left - stickyRect.left;
+      const aboutTop = aboutRect.top - stickyRect.top;
       const aboutWidth = aboutRect.width;
-
-      // Scroll distance until the About section reaches top of viewport
-      const scrollRange = Math.max(1, aboutSection.offsetTop);
 
       coordsRef.current = {
         heroLeft,
@@ -74,7 +86,6 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
         aboutLeft,
         aboutTop,
         aboutWidth,
-        scrollRange,
       };
 
       setIsTravelingActive(true);
@@ -82,9 +93,16 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
     };
 
     const updatePosition = () => {
-      if (!travelingRef.current || !coordsRef.current) return;
+      if (!wrapperRef.current || !travelingRef.current || !coordsRef.current) return;
 
-      const scrollY = window.scrollY;
+      const isDesktop = window.innerWidth > 900;
+      if (!isDesktop) return;
+
+      const rect = wrapperRef.current.getBoundingClientRect();
+      const totalScroll = wrapperRef.current.offsetHeight - window.innerHeight;
+      const scrollPassed = -rect.top;
+      const rawProgress = Math.min(1, Math.max(0, scrollPassed / Math.max(1, totalScroll)));
+
       const {
         heroLeft,
         heroTop,
@@ -92,34 +110,22 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
         aboutLeft,
         aboutTop,
         aboutWidth,
-        scrollRange,
       } = coordsRef.current;
 
-      // Progress normalized from 0 (Hero) to 1 (About)
-      const rawProgress = Math.min(1, Math.max(0, scrollY / scrollRange));
-
-      // Separate horizontal progress: smooth diagonal arc that completes by ~78% scroll
-      const rawX = Math.min(1, Math.max(0, scrollY / (scrollRange * 0.78)));
-      const tx =
-        rawX < 0.5
-          ? 2 * rawX * rawX
-          : 1 - Math.pow(-2 * rawX + 2, 2) / 2;
-
-      // Vertical progress uses smooth natural ease
-      const ty =
-        rawProgress < 0.5
-          ? 2 * rawProgress * rawProgress
-          : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
+      // 1. Portrait movement curve from Right (Hero) to Leftmost (About)
+      const rawImgP = Math.min(1, Math.max(0, (rawProgress - 0.04) / 0.82));
+      const tx = ease(rawImgP);
+      const ty = ease(rawProgress);
 
       const currentLeft = heroLeft + (aboutLeft - heroLeft) * tx;
       const currentTop = heroTop + (aboutTop - heroTop) * ty;
       const currentWidth = heroWidth + (aboutWidth - heroWidth) * tx;
       const currentHeight = currentWidth * (1309 / 1201);
 
-      // Bottom mist fade appears smoothly as the image enters the About composition
-      const mistT = Math.min(1, Math.max(0, (rawProgress - 0.15) / 0.75));
-      const solidStop = 100 - (100 - 62) * mistT;
-      const fadeStop = 100 - (100 - 94) * mistT;
+      // Bottom mist mask appears as the image approaches the About section
+      const mistT = Math.min(1, Math.max(0, (rawProgress - 0.20) / 0.65));
+      const solidStop = 100 - (100 - 65) * mistT;
+      const fadeStop = 100 - (100 - 95) * mistT;
       const mask =
         mistT > 0.02
           ? `linear-gradient(to bottom, black ${solidStop.toFixed(1)}%, transparent ${fadeStop.toFixed(1)}%)`
@@ -131,44 +137,27 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
       travelingRef.current.style.webkitMaskImage = mask;
       travelingRef.current.style.maskImage = mask;
 
-      // Choreograph surrounding elements via CSS variables on wrapper
-      if (wrapperRef.current) {
-        const ease = (v: number) =>
-          v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2;
+      // 2. Choreograph Hero Exit (translates to the right & fades out)
+      const rawHeroExit = Math.min(1, Math.max(0, rawProgress / 0.35));
+      const heroExit = ease(rawHeroExit);
 
-        // 1. Hero peripherals disperse gracefully during the initial departure (0.00 -> 0.28)
-        const rawHeroExit = Math.min(1, Math.max(0, rawProgress / 0.28));
-        const heroExit = ease(rawHeroExit);
+      // 3. Choreograph About Entrance (left portrait stage + right content stage)
+      const rawAboutLeft = Math.min(1, Math.max(0, (rawProgress - 0.18) / 0.60));
+      const aboutLeftVal = ease(rawAboutLeft);
 
-        // 2. About Me left typographic statement glides in (0.30 -> 0.75)
-        const rawAboutLeft = Math.min(1, Math.max(0, (rawProgress - 0.30) / 0.45));
-        const aboutLeftVal = ease(rawAboutLeft);
+      const rawAboutContent = Math.min(1, Math.max(0, (rawProgress - 0.28) / 0.58));
+      const aboutContentVal = ease(rawAboutContent);
 
-        // 3. About Me architectural frame (pillar, connecting line, rotated text) assembles (0.36 -> 0.76)
-        const rawPillar = Math.min(1, Math.max(0, (rawProgress - 0.36) / 0.40));
-        const aboutPillar = ease(rawPillar);
+      const rawBars = Math.min(1, Math.max(0, (rawProgress - 0.22) / 0.48));
+      const aboutBars = ease(rawBars);
 
-        // 4. "A BETTER VERSION EVERYDAY" tag slides into place ONLY after portrait descends past upper slot (0.72 -> 0.96)
-        // This ensures zero overlap with the portrait's neck during transit!
-        const rawTag = Math.min(1, Math.max(0, (rawProgress - 0.72) / 0.24));
-        const aboutTag = ease(rawTag);
-
-        // 5. About Me narrative column (greeting, lead, body, 4 icons) rises into place (0.65 -> 0.95)
-        // Keeps the text hidden while the portrait crosses horizontally
-        const rawNarrative = Math.min(1, Math.max(0, (rawProgress - 0.65) / 0.30));
-        const aboutNarrative = ease(rawNarrative);
-
-        // 6. Right metrics & perspective column and bottom bar assemble as docked (0.72 -> 0.98)
-        const rawStats = Math.min(1, Math.max(0, (rawProgress - 0.72) / 0.26));
-        const aboutStats = ease(rawStats);
-
-        wrapperRef.current.style.setProperty("--hero-exit", heroExit.toFixed(3));
-        wrapperRef.current.style.setProperty("--about-left", aboutLeftVal.toFixed(3));
-        wrapperRef.current.style.setProperty("--about-pillar", aboutPillar.toFixed(3));
-        wrapperRef.current.style.setProperty("--about-tag", aboutTag.toFixed(3));
-        wrapperRef.current.style.setProperty("--about-narrative", aboutNarrative.toFixed(3));
-        wrapperRef.current.style.setProperty("--about-stats", aboutStats.toFixed(3));
-      }
+      // Apply CSS variables to wrapper
+      wrapperRef.current.style.setProperty("--hero-exit", heroExit.toFixed(3));
+      wrapperRef.current.style.setProperty("--hero-pointer", heroExit > 0.85 ? "none" : "auto");
+      wrapperRef.current.style.setProperty("--about-left", aboutLeftVal.toFixed(3));
+      wrapperRef.current.style.setProperty("--about-content", aboutContentVal.toFixed(3));
+      wrapperRef.current.style.setProperty("--about-bars", aboutBars.toFixed(3));
+      wrapperRef.current.style.setProperty("--about-pointer", rawProgress > 0.45 ? "auto" : "none");
     };
 
     const onScroll = () => {
@@ -176,9 +165,8 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
       animationFrameId = requestAnimationFrame(updatePosition);
     };
 
-    // Measure on mount, after short delays for fonts/images, and on window load
-    const timer1 = setTimeout(measureSlots, 50);
-    const timer2 = setTimeout(measureSlots, 300);
+    const timer1 = setTimeout(measureSlots, 60);
+    const timer2 = setTimeout(measureSlots, 350);
     window.addEventListener("load", measureSlots);
     window.addEventListener("resize", measureSlots);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -196,25 +184,36 @@ export default function HeroAboutBridge({ children }: { children: React.ReactNod
   return (
     <HeroAboutContext.Provider value={{ isTravelingActive }}>
       <div ref={wrapperRef} className={styles.bridgeWrapper}>
-        <div
-          ref={travelingRef}
-          className={styles.travelingPortrait}
-          style={{
-            opacity: isTravelingActive ? 1 : 0,
-            visibility: isTravelingActive ? "visible" : "hidden",
-            transition: "opacity 0.2s ease",
-          }}
-        >
-          <Image
-            src="/hero-transparent.png"
-            alt="Bhoomit Rachchawar - Python Developer"
-            width={600}
-            height={654}
-            priority
-            className={styles.travelingImg}
-          />
+        <div ref={stickyRef} className={styles.stickyStage}>
+          {/* Traveling Morphing Portrait */}
+          <div
+            ref={travelingRef}
+            className={styles.travelingPortrait}
+            style={{
+              opacity: isTravelingActive ? 1 : 0,
+              visibility: isTravelingActive ? "visible" : "hidden",
+            }}
+          >
+            <Image
+              src="/hero-transparent.png"
+              alt="Bhoomit Rachchawar - Python Developer"
+              width={600}
+              height={654}
+              priority
+              className={styles.travelingImg}
+            />
+          </div>
+
+          {/* Hero View Layer */}
+          <div className={styles.heroLayer}>
+            {heroContent || (Array.isArray(children) ? children[0] : children)}
+          </div>
+
+          {/* About View Layer */}
+          <div className={styles.aboutLayer}>
+            {aboutContent || (Array.isArray(children) ? children[1] : null)}
+          </div>
         </div>
-        {children}
       </div>
     </HeroAboutContext.Provider>
   );

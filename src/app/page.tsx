@@ -26,13 +26,15 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header activeNav="Home" />
-      <HeroAboutBridge>
-        <main className={styles.heroSection} id="home">
-          <Hero />
-          <BottomBar currentSlide="01" totalSlides="05" />
-        </main>
-        <About />
-      </HeroAboutBridge>
+      <HeroAboutBridge
+        heroContent={
+          <main className={styles.heroSection} id="home">
+            <Hero />
+            <BottomBar currentSlide="01" totalSlides="05" />
+          </main>
+        }
+        aboutContent={<About />}
+      />
       <Skills />
       <Projects />
       <Experience />

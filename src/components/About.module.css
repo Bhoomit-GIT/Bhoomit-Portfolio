@@ -3,27 +3,29 @@
   width: 100%;
   max-width: 1560px;
   margin: 0 auto;
-  background-color: var(--bg-color, #f8f9fa);
-  padding: 2.4rem clamp(1.5rem, 3.5vw, 3.5rem) 1.8rem clamp(1.5rem, 3.5vw, 3.5rem);
+  background-color: transparent;
+  padding: 0.8rem clamp(1.5rem, 4vw, 4rem) 1.2rem clamp(1.5rem, 4vw, 4rem);
   box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  min-height: 100vh;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 /* ==========================================================================
-   TOP OVERLINE ROW
+   TOP BAR
    ========================================================================== */
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.2rem;
+  margin-bottom: 1rem;
   width: 100%;
   user-select: none;
   position: relative;
+  opacity: var(--about-bars, 0);
+  will-change: opacity;
 }
 
 .topLeft {
@@ -55,33 +57,6 @@
   font-family: var(--font-sans);
 }
 
-.headerConnectingLine {
-  position: absolute;
-  left: 170px;
-  right: calc(100% - (290px + clamp(1.5rem, 2.4vw, 3rem) + 185px));
-  height: 1px;
-  background-color: #d5d7dc;
-  top: 50%;
-  transform: translateY(-50%) scaleX(var(--about-pillar, 1));
-  transform-origin: left center;
-  opacity: var(--about-pillar, 1);
-  will-change: transform, opacity;
-}
-
-.topPillarGuide {
-  position: absolute;
-  left: calc(290px + clamp(1.5rem, 2.4vw, 3rem) + 185px);
-  top: -2.4rem;
-  height: calc(100% + 2.4rem + 2.2rem);
-  width: 1px;
-  background-color: #d5d7dc;
-  z-index: 3;
-  transform: scaleY(var(--about-pillar, 1));
-  transform-origin: top center;
-  opacity: var(--about-pillar, 1);
-  will-change: transform, opacity;
-}
-
 .topRightTags {
   display: flex;
   align-items: center;
@@ -92,156 +67,78 @@
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: #555861;
+  color: #636772;
   text-transform: uppercase;
   font-family: var(--font-sans);
 }
 
 /* ==========================================================================
-   MAIN COMPOSITION GRID
+   MAIN 2-COLUMN GRID COMPOSITION
    ========================================================================== */
 .mainContainer {
   display: grid;
-  grid-template-columns: 290px 1fr 210px;
-  gap: clamp(1.5rem, 2.4vw, 3rem);
-  align-items: stretch;
+  grid-template-columns: 430px 1fr;
+  gap: clamp(2.5rem, 4.5vw, 5rem);
+  align-items: center;
   flex: 1;
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.2rem;
   position: relative;
 }
 
 /* ==========================================================================
-   COLUMN 1: Left Typographic Statement
+   LEFT COLUMN: ARCHITECTURAL PORTRAIT STAGE
    ========================================================================== */
-.leftCol {
+.portraitStage {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-right: 0.5rem;
-  opacity: var(--about-left, 1);
-  transform: translate3d(calc((1 - var(--about-left, 1)) * -24px), 0, 0);
+  justify-content: center;
+  align-items: center;
+  opacity: var(--about-left, 0);
+  transform: translate3d(calc((1 - var(--about-left, 0)) * -60px), 0, 0);
   will-change: transform, opacity;
-}
-
-.leftHeadlineWrap {
-  display: flex;
-  flex-direction: column;
-}
-
-.mainHeadline {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  line-height: 0.94;
-  letter-spacing: -0.04em;
-}
-
-.headlineBold {
-  font-size: clamp(3rem, 4.3vw, 4.6rem);
-  font-weight: 800;
-  color: #111215;
-  font-family: var(--font-sans);
-  display: block;
-}
-
-.headlineItalicLight {
-  font-size: clamp(3.2rem, 4.5vw, 4.8rem);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: #707581;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  display: block;
-}
-
-.headlineItalicDark {
-  font-size: clamp(3.2rem, 4.5vw, 4.8rem);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: #111215;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  display: block;
-}
-
-.leftBottomMeta {
-  margin-top: clamp(3rem, 5vw, 5.5rem);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  user-select: none;
-}
-
-.metaLines {
-  display: flex;
-  flex-direction: column;
-  gap: 0.18rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #5f636d;
-  line-height: 1.5;
-  text-transform: uppercase;
-  font-family: var(--font-sans);
-}
-
-.verticalHairline {
-  width: 1.5px;
-  height: 38px;
-  background-color: #121316;
-}
-
-/* ==========================================================================
-   CENTER AREA: Pillar + Portrait + Tags + Narrative
-   ========================================================================== */
-.centerArea {
-  display: flex;
-  gap: 2rem;
-  align-items: stretch;
-  position: relative;
 }
 
 .pillarWrapper {
   position: relative;
-  width: 370px;
-  flex-shrink: 0;
-  min-height: 520px;
+  width: 100%;
+  max-width: 410px;
+  min-height: 490px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-/* Textured Vertical Pillar with Architectural Plaster Grain */
+/* Textured Arch Backdrop */
 .texturedPillar {
   position: absolute;
-  top: 0;
-  left: 20px;
-  width: 165px;
-  height: 480px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 450px;
   background-color: #e5e6ea;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+  border-radius: 130px 130px 0 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
   border-top: 1px solid #d5d7dc;
   border-left: 1px solid #d5d7dc;
   border-right: 1px solid #d5d7dc;
   z-index: 1;
-  mask-image: linear-gradient(to bottom, black 58%, transparent 92%);
-  -webkit-mask-image: linear-gradient(to bottom, black 58%, transparent 92%);
-  opacity: var(--about-pillar, 1);
-  transform: translate3d(0, calc((1 - var(--about-pillar, 1)) * -24px), 0);
-  will-change: transform, opacity;
+  mask-image: linear-gradient(to bottom, black 65%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 96%);
 }
 
 /* Rotated Edge Text Along Pillar Border */
 .rotatedTextWrap {
   position: absolute;
-  left: 13px;
-  bottom: 135px;
-  transform: rotate(-90deg) translate3d(calc((1 - var(--about-pillar, 1)) * 25px), 0, 0);
-  opacity: var(--about-pillar, 1);
+  left: 15px;
+  bottom: 120px;
+  transform: rotate(-90deg);
   transform-origin: left bottom;
   z-index: 4;
   white-space: nowrap;
   user-select: none;
-  will-change: transform, opacity;
 }
 
 .rotatedText {
@@ -253,48 +150,45 @@
   font-family: monospace;
 }
 
-/* Tag: A BETTER VERSION EVERYDAY */
+/* Minimalist Top Tag */
 .betterVersionTag {
   position: absolute;
-  top: 0.8rem;
-  left: 202px;
-  transform: translate3d(0, calc((1 - var(--about-tag, 1)) * -18px), 0);
-  opacity: var(--about-tag, 1);
+  top: 1.2rem;
+  right: 15px;
   display: flex;
   flex-direction: column;
-  gap: 0.16rem;
+  align-items: flex-start;
+  gap: 0.14rem;
   z-index: 5;
   white-space: nowrap;
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #5f636d;
+  letter-spacing: 0.2em;
+  color: #626670;
   text-transform: uppercase;
   font-family: var(--font-sans);
-  line-height: 1.4;
+  line-height: 1.35;
   user-select: none;
-  will-change: transform, opacity;
 }
 
 .tagLine {
   width: 20px;
-  height: 1px;
+  height: 1.5px;
   background-color: #adb0b6;
   margin-top: 0.35rem;
 }
 
-/* Portrait Image with Natural Arch and Smooth Gradient Mask at Bottom */
+/* Portrait Image Slot */
 .portraitWrap {
-  position: absolute;
-  top: 25px;
-  left: 10px;
-  width: 440px;
+  position: relative;
+  width: 100%;
+  max-width: 410px;
   z-index: 2;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  mask-image: linear-gradient(to bottom, black 62%, transparent 94%);
-  -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 94%);
+  mask-image: linear-gradient(to bottom, black 65%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 95%);
 }
 
 .portraitImg {
@@ -304,139 +198,153 @@
   display: block;
 }
 
-/* Narrative Column */
-.narrativeCol {
-  flex: 1;
-  min-width: 0;
+/* ==========================================================================
+   RIGHT COLUMN: CONTENT STAGE
+   ========================================================================== */
+.contentStage {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-top: 0.2rem;
-  opacity: var(--about-narrative, 1);
-  transform: translate3d(0, calc((1 - var(--about-narrative, 1)) * 32px), 0);
+  justify-content: center;
+  gap: 1.45rem;
+  opacity: var(--about-content, 0);
+  transform: translate3d(calc((1 - var(--about-content, 0)) * 60px), 0, 0);
   will-change: transform, opacity;
+  min-width: 0;
 }
 
-.greetingRow {
+.narrativeHeader {
   display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.greetingPill {
+  display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.3rem;
+  gap: 0.65rem;
+  background-color: #121316;
+  color: #ffffff;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  width: fit-content;
   user-select: none;
 }
 
+.greetingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #55c777;
+}
+
 .greetingText {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
-  color: #555861;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-family: var(--font-sans);
 }
 
-.greetingLine {
-  width: 32px;
-  height: 1px;
-  background-color: #adb0b6;
-}
-
 .leadNarrative {
-  font-size: clamp(1.18rem, 1.45vw, 1.42rem);
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: clamp(1.3rem, 1.75vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.32;
   color: #111215;
-  letter-spacing: -0.015em;
-  margin: 0 0 1.4rem 0;
-  max-width: 445px;
+  letter-spacing: -0.025em;
+  margin: 0;
+  max-width: 780px;
   font-family: var(--font-sans);
 }
 
-.bodyNarrative {
-  font-size: clamp(0.86rem, 0.98vw, 0.96rem);
+.narrativeBodyWrap {
+  max-width: 780px;
+}
+
+.bodyParagraph {
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
   font-weight: 400;
-  line-height: 1.65;
-  color: #5e626a;
-  margin: 0 0 2rem 0;
-  max-width: 460px;
+  line-height: 1.68;
+  color: #585c66;
+  margin: 0;
   font-family: var(--font-sans);
 }
 
-.pillarsContainer {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
+.bodyParagraph strong {
+  color: #121316;
+  font-weight: 600;
+}
+
+/* 4 Value Pillars Grid */
+.pillarsSection {
+  width: 100%;
+  max-width: 780px;
 }
 
 .pillarsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
-.pillarItem {
+.pillarCard {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.65rem;
+  gap: 0.55rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   user-select: none;
+}
+
+.pillarCard:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .pillarIconWrap {
   color: #121316;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  height: 26px;
+  height: 24px;
 }
 
 .pillarLabels {
   display: flex;
   flex-direction: column;
-  font-size: 0.64rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: #555960;
+  color: #4a4d55;
   text-transform: uppercase;
-  line-height: 1.4;
+  line-height: 1.35;
   font-family: var(--font-sans);
 }
 
-.pillarsBottomLine {
-  width: 100%;
-  height: 1px;
-  background-color: #dcdfe4;
-}
-
-/* ==========================================================================
-   COLUMN 3: Far Right Metrics & Perspective
-   ========================================================================== */
-.rightCol {
-  border-left: 1px solid #dcdfe4;
-  padding-left: clamp(1.2rem, 1.8vw, 2.2rem);
+/* Horizontal Metrics Row */
+.metricsRow {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  opacity: var(--about-stats, 1);
-  transform: translate3d(0, calc((1 - var(--about-stats, 1)) * 28px), 0);
-  will-change: transform, opacity;
-}
-
-.metricsList {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2.2rem, 3.4vw, 3.2rem);
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  max-width: 780px;
 }
 
 .metricItem {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  align-items: center;
+  gap: 0.9rem;
 }
 
 .metricValue {
-  font-size: clamp(2.5rem, 3.4vw, 3.4rem);
+  font-size: clamp(2rem, 2.6vw, 2.7rem);
   font-weight: 800;
   line-height: 1;
   color: #111215;
@@ -447,7 +355,7 @@
 }
 
 .infinityGlyph {
-  width: clamp(45px, 3.2vw, 52px);
+  width: clamp(40px, 2.8vw, 48px);
   height: auto;
   color: #111215;
   display: inline-block;
@@ -456,8 +364,7 @@
 .metricLabel {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   color: #626670;
@@ -466,48 +373,25 @@
   line-height: 1.35;
 }
 
-.perspectiveWrap {
-  margin-top: clamp(2.5rem, 4vw, 3.8rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  user-select: none;
-}
-
-.perspectiveText {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #5f636d;
-  text-transform: uppercase;
-  line-height: 1.45;
-  font-family: var(--font-sans);
-}
-
-.perspectiveLine {
-  width: 20px;
-  height: 1px;
-  background-color: #adb0b6;
-  margin-top: 0.3rem;
+.metricDivider {
+  width: 1px;
+  height: 36px;
+  background-color: #dcdfe4;
 }
 
 /* ==========================================================================
-   FULL-WIDTH BOTTOM BAR FOOTER
+   BOTTOM BAR FOOTER
    ========================================================================== */
 .bottomBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1.5rem;
+  padding-top: 1.1rem;
   border-top: 1px solid rgba(0, 0, 0, 0.07);
   width: 100%;
   user-select: none;
-  opacity: var(--about-stats, 1);
-  transform: translate3d(0, calc((1 - var(--about-stats, 1)) * 14px), 0);
-  will-change: transform, opacity;
+  opacity: var(--about-bars, 0);
+  will-change: opacity;
 }
 
 .bottomBarLeft {
@@ -584,78 +468,30 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE OVERRIDES
    ========================================================================== */
-@media (max-width: 1280px) {
+@media (max-width: 1100px) {
   .mainContainer {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 360px 1fr;
+    gap: 2.5rem;
   }
 
-  .centerArea {
-    grid-column: span 2;
-  }
-
-  .rightCol {
-    grid-column: span 2;
-    border-left: none;
-    border-top: 1px solid #dcdfe4;
-    padding-left: 0;
-    padding-top: 2.5rem;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  .metricsList {
-    flex-direction: row;
-    gap: 3rem;
-  }
-
-  .perspectiveWrap {
-    margin-top: 0;
-  }
-
-  .topPillarGuide,
-  .headerConnectingLine {
-    display: none;
+  .pillarsGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .centerArea {
-    flex-direction: column;
-    align-items: center;
+  .topBar,
+  .portraitStage,
+  .contentStage,
+  .bottomBar {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
-  .pillarWrapper {
-    width: 100%;
-    min-height: 480px;
-  }
-
-  .texturedPillar {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .betterVersionTag {
-    left: calc(50% + 90px);
-  }
-
-  .portraitWrap {
-    left: 50%;
-    transform: translateX(-50%);
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 768px) {
   .aboutSection {
-    padding: 3.5rem 1.25rem 2rem 1.25rem;
-  }
-
-  .topRightTags {
-    display: none;
+    padding: 3rem 1.25rem 2rem 1.25rem;
   }
 
   .mainContainer {
@@ -663,19 +499,16 @@
     gap: 3rem;
   }
 
-  .rightCol {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2.5rem;
+  .portraitStage {
+    max-width: 100%;
   }
 
-  .metricsList {
-    flex-direction: column;
-    gap: 2rem;
+  .topRightTags {
+    display: none;
   }
 
-  .pillarsGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .metricsRow {
+    flex-wrap: wrap;
     gap: 1.5rem;
   }
 

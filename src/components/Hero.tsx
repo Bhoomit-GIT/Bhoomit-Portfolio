@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Download, Mail } from "lucide-react";
-import { motion } from "framer-motion";
 import { useHeroAbout } from "./HeroAboutBridge";
 import styles from "./Hero.module.css";
 
@@ -55,42 +54,18 @@ export default function Hero() {
   return (
     <section className={styles.heroMain} aria-label="Hero">
       {/* Left Column: Content */}
-      <motion.div
-        className={styles.leftCol}
-        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: isMobile ? 0.2 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <div className={styles.leftCol}>
         <div className={styles.overlineGroup}>
           <span className={styles.overlineLine} aria-hidden="true" />
           <span className={styles.overline}>PYTHON DEVELOPER</span>
         </div>
 
         <h1 className={styles.title}>
-          <motion.span
-            className={styles.titleLine}
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Hi, I’m
-          </motion.span>
-          <motion.span
-            className={styles.titleLine}
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Bhoomit
-          </motion.span>
-          <motion.span
-            className={styles.titleLine}
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <span className={styles.titleLine}>Hi, I’m</span>
+          <span className={styles.titleLine}>Bhoomit</span>
+          <span className={styles.titleLine}>
             Rachchawar<span className={styles.periodDot} aria-hidden="true" />
-          </motion.span>
+          </span>
         </h1>
 
         <p className={styles.description}>
@@ -157,15 +132,10 @@ export default function Hero() {
             <span className={styles.philosophyText}>BUILD LEARN IMPROVE REPEAT</span>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Right Column: Visual Composition */}
-      <motion.div
-        className={styles.rightCol}
-        initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: isMobile ? 0.2 : 0.8, delay: isMobile ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <div className={styles.rightCol}>
         <div className={styles.visualWrapper}>
           {/* Vertical tag on left of arch */}
           <div className={styles.verticalTag} aria-hidden="true">
@@ -202,7 +172,7 @@ export default function Hero() {
             />
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
