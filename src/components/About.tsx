@@ -111,20 +111,20 @@ export default function About() {
             ------------------------------------------------------------------ */}
         <div className={styles.portraitStage}>
           <div className={styles.pillarWrapper}>
-            {/* Textured Vertical Pillar Backdrop */}
+            {/* Textured Architectural Arch Backdrop */}
             <div className={styles.texturedPillar} aria-hidden="true" />
 
-            {/* Rotated Edge Text */}
+            {/* Left Edge Motto with Connecting Accent Line */}
             <div className={styles.rotatedTextWrap} aria-hidden="true">
+              <span className={styles.rotatedLine} />
               <span className={styles.rotatedText}>DISCIPLINE TURNS IDEAS INTO RESULTS</span>
             </div>
 
-            {/* Minimalist Top Tag */}
+            {/* Top-Right Architectural Philosophy Tag */}
             <div className={styles.betterVersionTag}>
-              <span>A BETTER</span>
-              <span>VERSION</span>
-              <span>EVERYDAY</span>
-              <div className={styles.tagLine} aria-hidden="true" />
+              <span className={styles.tagMotto}>A BETTER VERSION</span>
+              <span className={styles.tagMotto}>EVERYDAY</span>
+              <span className={styles.tagLine} aria-hidden="true" />
             </div>
 
             {/* Portrait Image with Natural Arch and Gradient Mist Mask */}

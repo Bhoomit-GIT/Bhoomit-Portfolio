@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
@@ -26,22 +26,59 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
   // Scroll spy & sticky header state
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 30);
 
-      const sectionIds = ["home", "about", "skills", "projects", "experience", "approach", "contact"];
-      const scrollPosition = window.scrollY + 160;
+      const bridge = document.querySelector('[class*="bridgeWrapper"]') as HTMLElement | null;
+      const isDesktop = window.innerWidth > 900;
 
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const id = sectionIds[i];
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            const matched = navItems.find((item) => item.href === `#${id}`);
-            if (matched) {
-              setCurrentActive(matched.label);
+      if (bridge && isDesktop) {
+        const bridgeTop = bridge.offsetTop;
+        const bridgeHeight = bridge.offsetHeight;
+        const bridgeScrollRange = bridgeHeight - window.innerHeight;
+
+        // Check sections below the bridge in reverse order
+        const lowerSectionIds = ["contact", "approach", "experience", "projects", "skills"];
+        let matchedLower = false;
+
+        for (const id of lowerSectionIds) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 220) {
+              const matched = navItems.find((item) => item.href === `#${id}`);
+              if (matched) {
+                setCurrentActive(matched.label);
+                matchedLower = true;
+              }
+              break;
             }
-            break;
+          }
+        }
+
+        if (!matchedLower) {
+          // Inside the HeroAboutBridge pinned runway
+          const progress = Math.min(1, Math.max(0, (scrollY - bridgeTop) / Math.max(1, bridgeScrollRange)));
+          if (progress >= 0.42) {
+            setCurrentActive("About");
+          } else {
+            setCurrentActive("Home");
+          }
+        }
+      } else {
+        // Fallback for mobile or standard flow
+        const sectionIds = ["contact", "approach", "experience", "projects", "skills", "about", "home"];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 220) {
+              const matched = navItems.find((item) => item.href === `#${id}`);
+              if (matched) {
+                setCurrentActive(matched.label);
+              }
+              break;
+            }
           }
         }
       }
@@ -51,6 +88,48 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Smooth navigation click handler
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
+      e.preventDefault();
+      setMobileMenuOpen(false);
+
+      if (href === "#home" || href === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setCurrentActive("Home");
+        window.history.pushState(null, "", "#home");
+        return;
+      }
+
+      if (href === "#about") {
+        const bridge = document.querySelector('[class*="bridgeWrapper"]') as HTMLElement | null;
+        const isDesktop = window.innerWidth > 900;
+        if (bridge && isDesktop) {
+          const bridgeScrollRange = bridge.offsetHeight - window.innerHeight;
+          const targetY = bridge.offsetTop + bridgeScrollRange * 0.95;
+          window.scrollTo({ top: targetY, behavior: "smooth" });
+        } else {
+          const aboutEl = document.getElementById("about");
+          if (aboutEl) {
+            aboutEl.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+        setCurrentActive("About");
+        window.history.pushState(null, "", "#about");
+        return;
+      }
+
+      const targetId = href.replace("#", "");
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: "smooth" });
+        setCurrentActive(label);
+        window.history.pushState(null, "", href);
+      }
+    },
+    []
+  );
 
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
@@ -69,7 +148,12 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
   return (
     <>
       <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ""}`}>
-        <Link href="/" className={styles.logo} aria-label="Bhoomit Rachchawar Home">
+        <Link
+          href="#home"
+          className={styles.logo}
+          aria-label="Bhoomit Rachchawar Home"
+          onClick={(e) => handleNavClick(e, "#home", "Home")}
+        >
           <span className={styles.logoText}>BR</span>
           <span className={styles.logoDot} />
         </Link>
@@ -82,6 +166,7 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
               <Link
                 key={item.label}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href, item.label)}
                 className={`${styles.navItem} ${isActive ? styles.activeNavItem : ""}`}
               >
                 {item.label}
@@ -92,7 +177,11 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
         </nav>
 
         <div className={styles.headerRight}>
-          <Link href="#contact" className={styles.connectBtn}>
+          <Link
+            href="#contact"
+            className={styles.connectBtn}
+            onClick={(e) => handleNavClick(e, "#contact", "Contact")}
+          >
             <span>Let&apos;s Connect</span>
             <ArrowUpRight size={16} strokeWidth={2} />
           </Link>
@@ -123,7 +212,11 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className={styles.mobileDrawerHeader}>
-            <Link href="/" className={styles.logo} onClick={closeMenu}>
+            <Link
+              href="#home"
+              className={styles.logo}
+              onClick={(e) => handleNavClick(e, "#home", "Home")}
+            >
               <span className={styles.logoText}>BR</span>
               <span className={styles.logoDot} />
             </Link>
@@ -144,7 +237,7 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={closeMenu}
+                  onClick={(e) => handleNavClick(e, item.href, item.label)}
                   className={`${styles.mobileNavItem} ${
                     isActive ? styles.activeMobileNavItem : ""
                   }`}
@@ -160,7 +253,7 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
           <div className={styles.mobileDrawerFooter}>
             <Link
               href="#contact"
-              onClick={closeMenu}
+              onClick={(e) => handleNavClick(e, "#contact", "Contact")}
               className={styles.mobileConnectBtn}
             >
               <span>Let&apos;s Connect</span>

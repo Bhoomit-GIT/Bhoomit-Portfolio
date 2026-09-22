@@ -124,8 +124,8 @@ export default function HeroAboutBridge({
 
       // Bottom mist mask appears as the image approaches the About section
       const mistT = Math.min(1, Math.max(0, (rawProgress - 0.20) / 0.65));
-      const solidStop = 100 - (100 - 65) * mistT;
-      const fadeStop = 100 - (100 - 95) * mistT;
+      const solidStop = 100 - (100 - 86) * mistT;
+      const fadeStop = 100 - (100 - 98) * mistT;
       const mask =
         mistT > 0.02
           ? `linear-gradient(to bottom, black ${solidStop.toFixed(1)}%, transparent ${fadeStop.toFixed(1)}%)`
