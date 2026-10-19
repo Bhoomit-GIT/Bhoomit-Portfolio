@@ -19,7 +19,6 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
     { label: "Skills", href: "#skills" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
-    { label: "Approach", href: "#approach" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -38,7 +37,7 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
         const bridgeScrollRange = bridgeHeight - window.innerHeight;
 
         // Check sections below the bridge in reverse order
-        const lowerSectionIds = ["contact", "approach", "experience", "projects", "skills"];
+        const lowerSectionIds = ["contact", "experience", "projects", "skills"];
         let matchedLower = false;
 
         for (const id of lowerSectionIds) {
@@ -67,7 +66,7 @@ export default function Header({ activeNav = "Home" }: HeaderProps) {
         }
       } else {
         // Fallback for mobile or standard flow
-        const sectionIds = ["contact", "approach", "experience", "projects", "skills", "about", "home"];
+        const sectionIds = ["contact", "experience", "projects", "skills", "about", "home"];
         for (const id of sectionIds) {
           const el = document.getElementById(id);
           if (el) {

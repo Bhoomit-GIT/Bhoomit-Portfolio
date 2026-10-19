@@ -7,7 +7,6 @@ import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
-import Approach from "@/components/Approach";
 import Contact from "@/components/Contact";
 import BottomBar from "@/components/BottomBar";
 import HeroAboutBridge from "@/components/HeroAboutBridge";
@@ -38,7 +37,6 @@ export default function Home() {
       <Skills />
       <Projects />
       <Experience />
-      <Approach />
       <Contact />
     </div>
   );
